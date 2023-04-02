@@ -1,0 +1,24 @@
+spring:
+  profiles: prd
+    active: itsum_prd # prd
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://itsum-mysql-db.cqehgizaa4nn.ap-northeast-2.rds.amazonaws.com:3306/itsum_prd?serverTimezone=UTC&characterEncoding=UTF-8
+    username: admin
+    password: 123456780
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect #mysql
+        format_sql: true #To beautify or pretty print the SQL
+        show_sql: true #show sql
+greeting:
+  message: this is prd application
+logging:
+  level:
+    org.hibernate:
+      type.descriptor.sql: trace #show parameter binding
+      SQL: DEBUG
+
