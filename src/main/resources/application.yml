@@ -1,8 +1,10 @@
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
 logging:
   level:
     org.hibernate:
       type.descriptor.sql: trace #show parameter binding
       SQL: DEBUG
-greeting:
-  message: this is dev application
 

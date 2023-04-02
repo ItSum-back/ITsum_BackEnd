@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://itsum-mysql-db.cqehgizaa4nn.ap-northeast-2.rds.amazonaws.com:3306/itsum1?serverTimezone=UTC&characterEncoding=UTF-8
+    url: jdbc:mysql://itsum-mysql-db.cqehgizaa4nn.ap-northeast-2.rds.amazonaws.com:3306/itsum?serverTimezone=UTC&characterEncoding=UTF-8
     username: admin
     password: 123456780
   jpa:
@@ -17,4 +17,6 @@ logging:
     org.hibernate:
       type.descriptor.sql: trace #show parameter binding
       SQL: DEBUG
+server:
+  port: 9090
 
