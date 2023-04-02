@@ -12,10 +12,4 @@ public class ItsumApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ItsumApplication.class, args);
 	}
-
-	@GetMapping
-	public String string(@Value("${greeting.message}") String message) {
-		return message;
-	}
-
 }

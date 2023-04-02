@@ -20,8 +20,6 @@ logging:
     org.hibernate:
       type.descriptor.sql: trace #show parameter binding
       SQL: DEBUG
-greeting:
-  message: this is dev application
 
 ---
 spring:

@@ -12,8 +12,6 @@ spring:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect #mysql
         format_sql: true #To beautify or pretty print the SQL
         show_sql: true #show sql
-greeting:
-  message: this is prd application
 logging:
   level:
     org.hibernate:
