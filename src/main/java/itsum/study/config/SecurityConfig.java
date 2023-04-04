@@ -33,20 +33,23 @@ public class SecurityConfig {
             "/webjars/**",
             /* swagger v3 */
             "/v3/api-docs/**",
-            "/swagger-ui/**"
+            "/swagger-ui/**",
     };
 
 
     //Spring Security 5.4 이후부터는 WebSecurityConfigurerAdapter extends 불가능
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf().disable()
+        return http.csrf().disable()
                 .authorizeHttpRequests()
-                .antMatchers(PERMIT_URL_ARRAY)
-                .permitAll()
-                .anyRequest()
-                .authenticated();
-        return http.build();
+                .antMatchers(PERMIT_URL_ARRAY).authenticated()
+                .anyRequest().permitAll()
+                .and()
+                .oauth2Login()
+                .and()
+                .formLogin()
+                .loginPage("/login")
+                .defaultSuccessUrl("/")
+                .and().build();
     }
 }
