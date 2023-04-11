@@ -1,6 +1,6 @@
 package itsum.study.config.auth;
 
-import itsum.study.model.User;
+import itsum.study.model.Member;
 import itsum.study.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,7 +16,7 @@ public class PrincipalDetailsService implements UserDetailsService{
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
+        Member user = userRepository.findByUsername(username);
         if(user == null) {
             return null;
         }else {

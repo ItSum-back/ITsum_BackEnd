@@ -7,7 +7,7 @@ import itsum.study.config.auth.PrincipalDetails;
 import itsum.study.config.oauth.provider.GoogleUserInfo;
 import itsum.study.config.oauth.provider.NaverUserInfo;
 import itsum.study.config.oauth.provider.OAuth2UserInfo;
-import itsum.study.model.User;
+import itsum.study.model.Member;
 import itsum.study.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -49,10 +49,10 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
         } else {
             System.out.println("우리는 구글과 네이버만 지원해요 ㅎㅎ");
         }
-        Optional<User> userOptional =
+        Optional<Member> userOptional =
                 userRepository.findByProviderAndProviderId(oAuth2UserInfo.getProvider(), oAuth2UserInfo.getProviderId());
 
-        User user;
+        Member user;
         if (userOptional.isPresent()) {
             user = userOptional.get();
             // user가 존재하면 update 해주기
@@ -60,7 +60,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
             userRepository.save(user);
         } else {
             // user의 패스워드가 null이기 때문에 OAuth 유저는 일반적인 로그인을 할 수 없음.
-            user = User.builder()
+            user = Member.builder()
                     .username(oAuth2UserInfo.getProvider() + "_" + oAuth2UserInfo.getProviderId())
                     .email(oAuth2UserInfo.getEmail())
                     .role("ROLE_USER")

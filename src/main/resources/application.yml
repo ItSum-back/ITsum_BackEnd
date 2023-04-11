@@ -18,14 +18,14 @@ spring:
             # 요청주소도 다르고, 응답 데이터도 다르기 때문이다.
           naver:
             client-id: 머시기
-              client-secret: 머시기
-              scope:
-                - name
-                - email
-                - profile_image
-              client-name: Naver # 클라이언트 네임은 구글 페이스북도 대문자로 시작하더라.
-              authorization-grant-type: authorization_code
-              redirect-uri: http://localhost:8080/login/oauth2/code/naver
+            client-secret: 머시기
+            scope:
+              - name
+              - email
+              - profile_image
+            client-name: Naver # 클라이언트 네임은 구글 페이스북도 대문자로 시작하더라.
+            authorization-grant-type: authorization_code
+            redirect-uri: http://localhost:8080/login/oauth2/code/naver
           kakao:
             client-id: 60ce8f9306c7f2f55b16f2bca433b65f
             redirect-uri: https://localhost:8080/oauth2/code

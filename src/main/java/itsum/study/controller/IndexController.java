@@ -3,7 +3,7 @@ package itsum.study.controller;
 import java.util.Iterator;
 
 import itsum.study.config.auth.PrincipalDetails;
-import itsum.study.model.User;
+import itsum.study.model.Member;
 import itsum.study.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -67,7 +67,7 @@ public class IndexController {
     }
 
     @PostMapping("/joinProc")
-    public String joinProc(User user) {
+    public String joinProc(Member user) {
         System.out.println("회원가입 진행 : " + user);
         String rawPassword = user.getPassword();
         String encPassword = bCryptPasswordEncoder.encode(rawPassword);
