@@ -2,27 +2,25 @@ package itsum.study.config.auth;
 
 import itsum.study.model.Member;
 import itsum.study.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-@Service
-public class PrincipalDetailsService implements UserDetailsService{
+import lombok.RequiredArgsConstructor;
 
-    @Autowired
-    private UserRepository userRepository;
+@Service
+@RequiredArgsConstructor
+public class PrincipalDetailsService implements UserDetailsService {
+
+    private final UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        System.out.println("PrincipalDetailsService : 진입");
         Member user = userRepository.findByUsername(username);
-        if(user == null) {
-            return null;
-        }else {
-            return new PrincipalDetails(user);
-        }
 
+        // session.setAttribute("loginUser", user);
+        return new PrincipalDetails(user);
     }
-
 }

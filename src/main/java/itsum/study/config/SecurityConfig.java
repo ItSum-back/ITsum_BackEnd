@@ -1,11 +1,17 @@
 package itsum.study.config;
 
+import itsum.study.config.jwt.JwtAuthenticationFilter;
+import itsum.study.config.jwt.JwtAuthorizationFilter;
 import itsum.study.config.oauth.PrincipalOauth2UserService;
+import itsum.study.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -14,7 +20,7 @@ public class SecurityConfig {
 
     private static final String[] PERMIT_URL_ARRAY = {
             /* User */
-            "/user/**",
+            "/api/v1/admin/**",
             /* swagger v2 */
             "/v2/api-docs",
             "/swagger-resources",
@@ -29,35 +35,37 @@ public class SecurityConfig {
     };
 
     @Autowired
-    private PrincipalOauth2UserService principalOauth2UserService;
+    private UserRepository userRepository;
+
+    @Autowired
+    private CorsConfig corsConfig;
 
     @Bean
-    public BCryptPasswordEncoder encodePwd() {
-        return new BCryptPasswordEncoder();
+    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        return http
+                .csrf().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .formLogin().disable()
+                .httpBasic().disable()
+                .apply(new MyCustomDsl()) // 커스텀 필터 등록
+                .and()
+                .authorizeRequests(authroize -> authroize.antMatchers("/api/v1/user/**")
+                        .access("hasRole('ROLE_USER') or hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
+                        .antMatchers(PERMIT_URL_ARRAY)
+                        .access("hasRole('ROLE_ADMIN')")
+                        .anyRequest().permitAll())
+                .build();
     }
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable();
-        http.authorizeRequests()
-                .antMatchers(PERMIT_URL_ARRAY).authenticated()
-                // .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN') or
-                // hasRole('ROLE_USER')")
-                // .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN') and
-                // hasRole('ROLE_USER')")
-                .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
-                .anyRequest().permitAll()
-                .and()
-                .formLogin()
-                .loginPage("/login")
-                .loginProcessingUrl("/loginProc")
-                .defaultSuccessUrl("/")
-                .and()
-                .oauth2Login()
-                .loginPage("/login")
-                .userInfoEndpoint()
-                .userService(principalOauth2UserService);
-
-        return http.build();
+    public class MyCustomDsl extends AbstractHttpConfigurer<MyCustomDsl, HttpSecurity> {
+        @Override
+        public void configure(HttpSecurity http) throws Exception {
+            AuthenticationManager authenticationManager = http.getSharedObject(AuthenticationManager.class);
+            http
+                    .addFilter(corsConfig.corsFilter())
+                    .addFilter(new JwtAuthenticationFilter(authenticationManager))
+                    .addFilter(new JwtAuthorizationFilter(authenticationManager, userRepository));
+        }
     }
 }

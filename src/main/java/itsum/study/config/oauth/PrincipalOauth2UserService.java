@@ -3,12 +3,10 @@ package itsum.study.config.oauth;
 import java.util.Map;
 import java.util.Optional;
 
-import itsum.study.config.auth.PrincipalDetails;
 import itsum.study.config.oauth.provider.GoogleUserInfo;
 import itsum.study.config.oauth.provider.NaverUserInfo;
 import itsum.study.config.oauth.provider.OAuth2UserInfo;
 import itsum.study.model.Member;
-import itsum.study.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
@@ -16,6 +14,13 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
+import com.cos.securityex01.config.auth.PrincipalDetails;
+import com.cos.securityex01.config.oauth.provider.FaceBookUserInfo;
+import com.cos.securityex01.config.oauth.provider.GoogleUserInfo;
+import com.cos.securityex01.config.oauth.provider.NaverUserInfo;
+import com.cos.securityex01.config.oauth.provider.OAuth2UserInfo;
+import com.cos.securityex01.model.User;
+import com.cos.securityex01.repository.UserRepository;
 
 @Service
 public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
@@ -47,8 +52,11 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
             System.out.println("네이버 로그인 요청~~");
             oAuth2UserInfo = new NaverUserInfo((Map)oAuth2User.getAttributes().get("response"));
         } else {
-            System.out.println("우리는 구글과 네이버만 지원해요 ㅎㅎ");
+            System.out.println("우리는 구글과 페이스북만 지원해요 ㅎㅎ");
         }
+
+        //System.out.println("oAuth2UserInfo.getProvider() : " + oAuth2UserInfo.getProvider());
+        //System.out.println("oAuth2UserInfo.getProviderId() : " + oAuth2UserInfo.getProviderId());
         Optional<Member> userOptional =
                 userRepository.findByProviderAndProviderId(oAuth2UserInfo.getProvider(), oAuth2UserInfo.getProviderId());
 
