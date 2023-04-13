@@ -2,8 +2,9 @@ package itsum.study.repository;
 
 import java.util.Optional;
 
-import itsum.study.model.Member;
+import itsum.study.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 /**
  * JPA는 기본 CRUD를 JpaRepository가 상속하는 CrudRepository가 가지고 있음.
@@ -11,10 +12,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 
 // JpaRepository 를 상속하면 자동 컴포넌트 스캔됨.
-public interface UserRepository extends JpaRepository<Member, Integer>{
-    // SELECT * FROM user WHERE username = ?1
-    Member findByUsername(String username);
+@Repository
+public interface UserRepository extends JpaRepository<User, Long> {
 
-    // SELECT * FROM user WHERE provider = ?1 and providerId = ?2
-    Optional<Member> findByProviderAndProviderId(String provider, String providerId);
+    Optional<User> findByEmail(String email);
+
+    Boolean existsByEmail(String email);
+
 }
