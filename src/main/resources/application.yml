@@ -7,6 +7,12 @@ spring:
     oauth2:
       client:
         registration:
+          kakao:
+            client-id: 60ce8f9306c7f2f55b16f2bca433b65f
+            redirect-uri: "http://localhost:8080/auth/kakao"
+            client-authentication-method: POST
+            authorization-grant-type: authorization_code
+            client-name: Kakao
           google:
             clientId: 5014057553-8gm9um6vnli3cle5rgigcdjpdrid14m9.apps.googleusercontent.com
             clientSecret: tWZKVLxaD_ARWsriiiUFYoIk
@@ -14,13 +20,6 @@ spring:
             scope:
               - email
               - profile
-          facebook:
-            clientId: 121189305185277
-            clientSecret: 42ffe5aa7379e8326387e0fe16f34132
-            redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
-            scope:
-              - email
-              - public_profile
           github:
             clientId: d3e47fc2ddd966fa4352
             clientSecret: 3bc0f6b8332f93076354c2a5bada2f5a05aea60d
