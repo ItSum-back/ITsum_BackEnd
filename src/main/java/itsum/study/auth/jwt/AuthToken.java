@@ -31,9 +31,9 @@ public class AuthToken {
     }
 
     private String createAuthToken(String socialId, String role, Date expiry) {
-        log.info(socialId);
         return Jwts.builder()
                 .setSubject(socialId)
+                .claim(AUTHORITIES_KEY, role)
                 .signWith(key, SignatureAlgorithm.HS256)
                 .setExpiration(expiry)
                 .compact();
@@ -56,7 +56,7 @@ public class AuthToken {
             log.info(token);
             log.info("Invalid JWT token.");
         } catch (ExpiredJwtException e) {
-            log.info("Expired JWT token." + e.getMessage());
+            log.info("Expired JWT token.");
         } catch (UnsupportedJwtException e) {
             log.info("Unsupported JWT token.");
         } catch (IllegalArgumentException e) {
