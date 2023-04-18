@@ -42,8 +42,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //.and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().oauth2Login().and()
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+                .and().oauth2Login();
+               // .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
     }
 }
