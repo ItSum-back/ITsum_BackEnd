@@ -1,15 +1,12 @@
 package itsum.study.members.domain;
 
 
-import com.querydsl.jpa.impl.JPAQueryFactory;
+
 import itsum.study.auth.enumerate.RoleType;
 import itsum.study.members.enumerate.MemberProvider;
-import itsum.study.posts.domain.Posts;
+import itsum.study.posts.domain.Post;
 import itsum.study.utils.domain.BaseEntity;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -26,8 +23,8 @@ import static javax.persistence.GenerationType.IDENTITY;
 public class Members extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @Column
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="members_id")
     private Long id;
 
     @Column(nullable = false)
@@ -38,6 +35,11 @@ public class Members extends BaseEntity {
 
     @Column
     private String email;
+
+
+    @OneToMany(mappedBy = "members")
+    private List<Post> posts = new ArrayList<Post>();
+
 
 
     @Column(nullable = false)
@@ -51,8 +53,7 @@ public class Members extends BaseEntity {
     @Column(nullable = false)
     private RoleType roleType;
 
-    @OneToMany(mappedBy = "members")
-    private List<Posts> posts = new ArrayList<>();
+
 
 
     public void updateNickname(String name) {
