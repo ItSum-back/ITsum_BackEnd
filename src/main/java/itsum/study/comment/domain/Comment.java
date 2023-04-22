@@ -12,6 +12,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Entity
@@ -45,6 +47,20 @@ public class Comment {
     @ManyToOne
     @JoinColumn(name="post_id")
     private Post post;
+
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parent_id")
+    private Comment parent;
+
+    @Builder.Default
+    @OneToMany(mappedBy = "parent", orphanRemoval = true)
+    private List<Comment> children = new ArrayList<>();
+
+    // 부모 댓글 수정
+    public void updateParent(Comment parent){
+        this.parent = parent;
+    }
 
 
 
