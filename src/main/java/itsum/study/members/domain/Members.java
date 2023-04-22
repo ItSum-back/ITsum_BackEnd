@@ -3,6 +3,7 @@ package itsum.study.members.domain;
 
 
 import itsum.study.auth.enumerate.RoleType;
+import itsum.study.comment.domain.Comment;
 import itsum.study.members.enumerate.MemberProvider;
 import itsum.study.posts.domain.Post;
 import itsum.study.utils.domain.BaseEntity;
@@ -12,8 +13,6 @@ import javax.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static javax.persistence.GenerationType.IDENTITY;
 
 @Getter
 @Entity
@@ -39,6 +38,9 @@ public class Members extends BaseEntity {
 
     @OneToMany(mappedBy = "members")
     private List<Post> posts = new ArrayList<Post>();
+
+    @OneToMany(mappedBy = "members")
+    private List<Comment> comments = new ArrayList<Comment>();
 
 
 
