@@ -52,7 +52,7 @@ public class Post {
     @JoinColumn(name="members_id")
     private Members members;
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<Comment>();
 
 
