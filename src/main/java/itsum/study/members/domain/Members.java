@@ -4,17 +4,17 @@ package itsum.study.members.domain;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import itsum.study.auth.enumerate.RoleType;
 import itsum.study.members.enumerate.MemberProvider;
+import itsum.study.posts.domain.Posts;
 import itsum.study.utils.domain.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+
+import javax.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -50,6 +50,9 @@ public class Members extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private RoleType roleType;
+
+    @OneToMany(mappedBy = "members")
+    private List<Posts> posts = new ArrayList<>();
 
 
     public void updateNickname(String name) {
