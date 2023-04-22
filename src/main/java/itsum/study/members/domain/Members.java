@@ -33,14 +33,12 @@ public class Members extends BaseEntity {
     @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
+    private String nickname;
+
     @Column
     private String email;
 
-    @Column
-    private String gender;
-
-    @Column
-    private Integer breadTestResult;
 
     @Column(nullable = false)
     private String socialId;
@@ -53,14 +51,10 @@ public class Members extends BaseEntity {
     @Column(nullable = false)
     private RoleType roleType;
 
-    @Column
-    private String profileImagePath;
 
-    public void updateName(String name) {
+    public void updateNickname(String name) {
         this.name = name;
     }
 
-    public void updateProfileImagePath(String profileImagePath) {
-        this.profileImagePath = profileImagePath;
-    }
+
 }

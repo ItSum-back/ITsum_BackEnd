@@ -27,7 +27,6 @@ public class MemberQuerydslRepository {
     public UserInfoResponse findByMemberId(Long memberId) {
         return jpaQueryFactory
                 .select(Projections.fields(UserInfoResponse.class,
-                        members.profileImagePath.as("profileImage"),
                         members.name.as("nickName"),
                         members.email))
                 .from(members)

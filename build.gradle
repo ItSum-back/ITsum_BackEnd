@@ -20,6 +20,8 @@ repositories {
 }
 
 dependencies {
+	implementation 'mysql:mysql-connector-java' // MySql
+
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
@@ -53,4 +55,8 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+bootRun {
+	String activeProfile = System.properties['spring.profiles.active']
+	systemProperty "spring.profiles.active", activeProfile
 }

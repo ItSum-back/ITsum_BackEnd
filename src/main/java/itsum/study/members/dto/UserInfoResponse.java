@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserInfoResponse {
 
-    private String profileImage;
     private String nickName;
     private String email;
 }

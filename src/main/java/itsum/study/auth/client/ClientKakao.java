@@ -34,10 +34,8 @@ public class ClientKakao implements ClientProxy {
                 .socialId(String.valueOf(kakaoUserResponse.getId()))
                 .name(kakaoUserResponse.getProperties().getNickname())
                 .email(kakaoUserResponse.getKakaoAccount().getEmail())
-                .gender(kakaoUserResponse.getKakaoAccount().getGender())
                 .memberProvider(MemberProvider.KAKAO)
                 .roleType(RoleType.USER)
-                .profileImagePath(kakaoUserResponse.getProperties().getProfileImage() != null ? kakaoUserResponse.getProperties().getProfileImage() : "")
                 .build();
     }
 }

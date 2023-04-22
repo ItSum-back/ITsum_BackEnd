@@ -2,6 +2,24 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+  h2:
+    console:
+      enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+    properties:
+      hibernate:
+        format_sql: true #To beautify or pretty print the SQL
+        show_sql: true #show sql
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/security?serverTimezone=Asia/Seoul
+    username: cos
+    password: 7351
 
   security:
     oauth2:
@@ -37,4 +55,7 @@ logging:
     org.hibernate:
       type.descriptor.sql: trace #show parameter binding
       SQL: DEBUG
-
+app:
+  auth:
+    tokenSecret: 04ca023b39512e46d0c2cf4b48d5aac61d34302994c87ed4eff225dcf3b0a218739f3897051a057f9b846a69ea2927a587044164b7bae5e1306219d50b588cb1
+    tokenExpiry: 864000000

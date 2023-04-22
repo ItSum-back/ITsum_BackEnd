@@ -11,6 +11,5 @@ import lombok.NoArgsConstructor;
 @Builder
 public class UserInfo {
 
-    private String profileImage;
     private String nickName;
 }
