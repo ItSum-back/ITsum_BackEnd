@@ -3,6 +3,7 @@ package itsum.study.posts.domain;
 import itsum.study.comment.domain.Comment;
 import itsum.study.members.domain.Members;
 import lombok.*;
+import org.hibernate.annotations.SQLDelete;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -19,6 +20,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@SQLDelete(sql = "UPDATE post SET deletedAt = true WHERE id = ?")
 public class Post {
 
     @Id
@@ -29,24 +31,19 @@ public class Post {
     private String title;
     private String contents;
     private int view;
-
     private String positionList ;
-
     private int personnel;
     private String techSkill;
-
-
     private String meetingWays ;
-
-
     @CreatedDate
     @DateTimeFormat(pattern = "yyyy-MM-dd/HH:mm:ss")
-    private LocalDateTime addDate;//created
+    private LocalDateTime createdAt;//created
 
     @LastModifiedDate
     @DateTimeFormat(pattern = "yyyy-MM-dd/HH:mm:ss")
-    private LocalDateTime editDate;//modified
+    private LocalDateTime modifiedAt;//modified
 
+    private boolean deleted = Boolean.FALSE; // 삭제 여부 기본값 false
 
     @ManyToOne
     @JoinColumn(name="members_id")

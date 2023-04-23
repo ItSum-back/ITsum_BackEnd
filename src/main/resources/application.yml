@@ -17,9 +17,9 @@ spring:
         show_sql: true #show sql
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/security?serverTimezone=Asia/Seoul
-    username: cos
-    password: 7351
+    url: jdbc:mysql://itsum-mysql-db.cqehgizaa4nn.ap-northeast-2.rds.amazonaws.com:3306/itsum?serverTimezone=UTC&characterEncoding=UTF-8
+    username:  admin
+    password: 123456780
 
   security:
     oauth2:
