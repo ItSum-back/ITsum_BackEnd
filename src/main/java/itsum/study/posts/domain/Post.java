@@ -52,7 +52,17 @@ public class Post {
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<Comment>();
 
+    public void update(String title, String contents, String positionList, int personnel, String techSkill, String meetingWays, Members members) {
+        this.title = title;
+        this.contents = contents;
+        this.positionList = positionList;
+        this.personnel = personnel;
+        this.techSkill = techSkill;
+        this.meetingWays = meetingWays;
+        this.members = members;
+    }
 
-
-
+    public void delete() {
+        this.deleted = true;
+    }
 }
