@@ -1,5 +1,6 @@
 package itsum.study.auth.config;
 
+import io.swagger.models.Contact;
 import io.swagger.models.Tag;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -19,14 +20,22 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
         "itsum.study.posts.controller",
 })
 public class SwaggerConfig {
-
     /** swagger */
     @Bean
     public Docket ItsumApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .groupName("ITSUM API")
+                .apiInfo(getApiInfo())
                 .select()
                 .paths(PathSelectors.any())
+                .build();
+    }
+
+    private ApiInfo getApiInfo() {
+        return new ApiInfoBuilder()
+                .title("ITSUM project REST API")
+                .description("ITSUM Java Backend REST API Guide Document")
+                .version("1.0")
                 .build();
     }
 }
