@@ -6,5 +6,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PostsRepository extends JpaRepository<Post, Long> {
     Post findPostById(Long post_id);
-    void deleteById(Long post_id);
 }
