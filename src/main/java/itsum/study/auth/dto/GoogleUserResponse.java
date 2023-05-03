@@ -14,7 +14,7 @@ import lombok.ToString;
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class GoogleUserResponse {
 
-    private String sub;
+    private String id;
     private String email;
     private String name;
     private String picture;

@@ -21,7 +21,8 @@ public class ClientGoogle implements ClientProxy {
     @Override
     public Members getUserData(String accessToken) {
         GoogleUserResponse googleUserResponse = webClient.get()
-                .uri("https://oauth2.googleapis.com/tokeninfo", builder -> builder.queryParam("id_token", accessToken).build())
+                .uri("https://www.googleapis.com/oauth2/v2/userinfo")
+                .header("AUTHORIZATION", "Bearer " + accessToken)
                 .retrieve()
                 .onStatus(HttpStatus::is4xxClientError, response -> Mono.error(new TokenValidFailedException("Social Access Token is unauthorized")))
                 .onStatus(HttpStatus::is5xxServerError, response -> Mono.error(new TokenValidFailedException("Internal Server Error")))
@@ -29,7 +30,7 @@ public class ClientGoogle implements ClientProxy {
                 .block();
 
         return Members.builder()
-                .socialId(googleUserResponse.getSub())
+                .socialId(googleUserResponse.getId())
                 .name(googleUserResponse.getName())
                 .email(googleUserResponse.getEmail())
                 .memberProvider(MemberProvider.GOOGLE)
