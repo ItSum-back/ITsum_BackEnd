@@ -5,6 +5,7 @@ import itsum.study.auth.dto.AuthRequest;
 import itsum.study.auth.dto.AuthResponse;
 import itsum.study.auth.jwt.AuthToken;
 import itsum.study.auth.jwt.JwtHeaderUtil;
+import itsum.study.posts.domain.Post;
 import itsum.study.posts.dto.PostsCreateRequestDto;
 import itsum.study.posts.dto.PostsResponseDto;
 import itsum.study.posts.dto.PostsUpdateRequestDto;
@@ -12,6 +13,10 @@ import itsum.study.posts.service.PostsService;
 import itsum.study.utils.dto.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +28,14 @@ import javax.servlet.http.HttpServletRequest;
 @RequiredArgsConstructor
 public class PostController {
     private final PostsService postsService;
+
+    @ApiOperation(value = "모집글 목록조회", notes = "모집글을 통해 목록 조회")
+    @GetMapping
+    public Page<Post> search(String keyword, @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+        Page<Post> searchList = postsService.search(keyword, pageable);
+        return searchList;
+    }
+
     /**
      * Post 생성
      * @return post_id
@@ -61,6 +74,4 @@ public class PostController {
     public PostsResponseDto GetPost (@PathVariable Long id) {
         return postsService.findById(id);
     }
-
-
 }

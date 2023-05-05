@@ -20,37 +20,25 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Members extends BaseEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="members_id")
     private Long id;
-
     @Column
     private String name;
-
     @Column
     private String nickname;
-
     @Column
     private String email;
-
-
     @OneToMany(mappedBy = "members")
     private List<Post> posts = new ArrayList<Post>();
-
     @OneToMany(mappedBy = "members")
     private List<Comment> comments = new ArrayList<Comment>();
-
-
-
     @Column(nullable = false)
     private String socialId;
-
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private MemberProvider memberProvider;
-
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private RoleType roleType;
