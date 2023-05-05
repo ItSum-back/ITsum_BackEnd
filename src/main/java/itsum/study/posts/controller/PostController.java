@@ -11,6 +11,7 @@ import itsum.study.posts.dto.PostsResponseDto;
 import itsum.study.posts.dto.PostsUpdateRequestDto;
 import itsum.study.posts.service.PostsService;
 import itsum.study.utils.dto.ApiResponse;
+import itsum.study.utils.dto.DataResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -21,6 +22,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.awt.print.Book;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -29,11 +32,15 @@ import javax.servlet.http.HttpServletRequest;
 public class PostController {
     private final PostsService postsService;
 
+    /**
+     * Post 목록 조회
+     * @return Page<Post>
+     */
     @ApiOperation(value = "모집글 목록조회", notes = "모집글을 통해 목록 조회")
     @GetMapping
-    public Page<Post> search(String keyword, @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
-        Page<Post> searchList = postsService.search(keyword, pageable);
-        return searchList;
+    public DataResponseDto<Page<Post>> search(String keyword, @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+        Page<Post> searchList = postsService.search(pageable);
+        return DataResponseDto.of(searchList);
     }
 
     /**
@@ -71,7 +78,7 @@ public class PostController {
      */
     @ApiOperation(value = "모집글 상세조회", notes = "모집글의 ID 값을 통해 상세 조회")
     @GetMapping("/{id}")
-    public PostsResponseDto GetPost (@PathVariable Long id) {
-        return postsService.findById(id);
+    public DataResponseDto<PostsResponseDto> GetPost (@PathVariable Long id) {
+        return DataResponseDto.of(postsService.findById(id));
     }
 }

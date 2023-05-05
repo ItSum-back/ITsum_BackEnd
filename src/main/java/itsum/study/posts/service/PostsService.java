@@ -12,6 +12,7 @@ import itsum.study.posts.dto.PostsCreateRequestDto;
 import itsum.study.posts.dto.PostsResponseDto;
 import itsum.study.posts.dto.PostsUpdateRequestDto;
 import itsum.study.posts.repository.PostsRepository;
+import itsum.study.utils.dto.DataResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -63,8 +64,8 @@ public class PostsService {
 
    /* search */
    @Transactional
-    public Page<Post> search(String keyword, Pageable pageable) {
-        Page<Post> postsList = postsRepository.findByTitleContaining(keyword, pageable);
+    public Page<Post> search(Pageable pageable) {
+        Page<Post> postsList = postsRepository.findAll(pageable);
         return postsList;
     }
 }
