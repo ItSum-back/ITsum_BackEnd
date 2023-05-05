@@ -2,8 +2,10 @@ package itsum.study.posts.domain;
 
 import itsum.study.comment.domain.Comment;
 import itsum.study.members.domain.Members;
+import itsum.study.utils.domain.BaseEntity;
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -20,14 +22,13 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@SQLDelete(sql = "UPDATE post SET deletedAt = true WHERE id = ?")
-public class Post {
-
+@SQLDelete(sql = "UPDATE post SET deleted = true WHERE post_id = ?")
+@Where(clause = "deleted = false") //
+public class Post extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="post_id")
     private Long id;
-
     private String title;
     private String contents;
     private int view;
@@ -35,13 +36,6 @@ public class Post {
     private int personnel;
     private String techSkill;
     private String meetingWays ;
-    @CreatedDate
-    @DateTimeFormat(pattern = "yyyy-MM-dd/HH:mm:ss")
-    private LocalDateTime createdAt;//created
-
-    @LastModifiedDate
-    @DateTimeFormat(pattern = "yyyy-MM-dd/HH:mm:ss")
-    private LocalDateTime modifiedAt;//modified
 
     private boolean deleted = Boolean.FALSE; // 삭제 여부 기본값 false
 

@@ -5,6 +5,7 @@ import itsum.study.auth.dto.AuthRequest;
 import itsum.study.auth.dto.AuthResponse;
 import itsum.study.auth.jwt.AuthToken;
 import itsum.study.auth.jwt.JwtHeaderUtil;
+import itsum.study.posts.dto.PostsCreateRequestDto;
 import itsum.study.posts.dto.PostsResponseDto;
 import itsum.study.posts.dto.PostsUpdateRequestDto;
 import itsum.study.posts.service.PostsService;
@@ -22,6 +23,15 @@ import javax.servlet.http.HttpServletRequest;
 @RequiredArgsConstructor
 public class PostController {
     private final PostsService postsService;
+    /**
+     * Post 생성
+     * @return post_id
+     */
+    @ApiOperation(value = "모집글 생성", notes = "모집글을 생성한다.")
+    @PostMapping
+    public Long createPost(@RequestBody PostsCreateRequestDto requestDto) {
+        return  postsService.savePost(requestDto);
+    }
     /**
      * Post 수정
      * @return ResponseEntity<PostResponse>

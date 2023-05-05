@@ -8,6 +8,7 @@ import itsum.study.comment.domain.Comment;
 import itsum.study.members.domain.Members;
 import itsum.study.members.repository.MemberQuerydslRepository;
 import itsum.study.posts.domain.Post;
+import itsum.study.posts.dto.PostsCreateRequestDto;
 import itsum.study.posts.dto.PostsResponseDto;
 import itsum.study.posts.dto.PostsUpdateRequestDto;
 import itsum.study.posts.repository.PostsRepository;
@@ -28,9 +29,14 @@ public class PostsService {
     //@Autowired 사용 지양 -> @RequiredArgsConstructor 로 생성되는 생성자로 주입받기 위해 final 붙임.
     private final PostsRepository postsRepository;
 
+    @Transactional
+    public Long savePost(PostsCreateRequestDto postsCreateRequestDto) {
+        return postsRepository.save(postsCreateRequestDto.toEntity()).getId();
+    }
+
+    @Transactional
     public PostsResponseDto findById(Long id) {
         Post entity = postsRepository.findById(id).orElseThrow(()->new IllegalArgumentException("해당 게시글이 없습니다. id="+id));
-
         return new PostsResponseDto(entity);
     }
 
