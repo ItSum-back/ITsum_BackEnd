@@ -49,4 +49,13 @@ public class PostsResponseDto {
         this.createdAt = entity.getCreatedAt();
         this.modifiedAt = entity.getModifiedAt();
     }
+    public static ArrayList<PostsResponseDto> toPostListResponse(List<Post> fetch) {
+
+        ArrayList<PostsResponseDto> responseDtoList = new ArrayList<>();
+
+        for(Post p : fetch){
+            responseDtoList.add(new PostsResponseDto(p));
+        }
+        return responseDtoList;
+    }
 }
