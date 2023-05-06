@@ -33,14 +33,15 @@ public class PostController {
     private final PostsService postsService;
 
     /**
-     * Post 목록 조회
-     * @return Page<Post>
+     * Post 목록 생성 (무한 스크롤)
+     * @return ResponseEntity<PostResponse>
      */
-    @ApiOperation(value = "모집글 목록조회", notes = "모집글을 통해 목록 조회")
-    @GetMapping
-    public DataResponseDto<Page<Post>> search(@PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
-        Page<Post> searchList = postsService.search(pageable);
-        return DataResponseDto.of(searchList);
+    @ApiOperation(value = "모집글 목록 생성", notes = "무한스크롤을 이용한 모집글 목록 생성")
+    @GetMapping("")
+    public ResponseEntity<Slice<PostsResponseDto>> searchAllProducts(
+            @RequestParam(value = "keyword",required = false) String keyword
+            ,Pageable pageable) {
+        return ApiResponse.success(postsService.findProductAllByCreatedAtDesc(keyword,pageable));
     }
 
     /**
@@ -81,4 +82,5 @@ public class PostController {
     public DataResponseDto<PostsResponseDto> GetPost (@PathVariable Long id) {
         return DataResponseDto.of(postsService.findById(id));
     }
+
 }
