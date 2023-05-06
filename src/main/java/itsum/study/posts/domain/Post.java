@@ -27,32 +27,28 @@ import static javax.persistence.GenerationType.IDENTITY;
 public class Post extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="post_id")
+    @Column
     private Long id;
     private String title;
     private String contents;
     private int view;
+    @Column(name="position_list")
     private String positionList ;
     private int personnel;
+    @Column(name="tech_skill")
     private String techSkill;
-    private String meetingWays ;
-
+    @Column(name="meeting_way")
+    private String meetingWay ;
     private boolean deleted = Boolean.FALSE; // 삭제 여부 기본값 false
+    private String members;
 
-    @ManyToOne
-    @JoinColumn(name="members_id")
-    private Members members;
-
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Comment> comments = new ArrayList<Comment>();
-
-    public void update(String title, String contents, String positionList, int personnel, String techSkill, String meetingWays, Members members) {
+    public void update(String title, String contents, String positionList, int personnel, String techSkill, String meetingWay, String members) {
         this.title = title;
         this.contents = contents;
         this.positionList = positionList;
         this.personnel = personnel;
         this.techSkill = techSkill;
-        this.meetingWays = meetingWays;
+        this.meetingWay = meetingWay;
         this.members = members;
     }
 

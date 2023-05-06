@@ -38,14 +38,14 @@ public class PostController {
      */
     @ApiOperation(value = "모집글 목록조회", notes = "모집글을 통해 목록 조회")
     @GetMapping
-    public DataResponseDto<Page<Post>> search(String keyword, @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+    public DataResponseDto<Page<Post>> search(@PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
         Page<Post> searchList = postsService.search(pageable);
         return DataResponseDto.of(searchList);
     }
 
     /**
      * Post 생성
-     * @return post_id
+     * @return ID
      */
     @ApiOperation(value = "모집글 생성", notes = "모집글을 생성한다.")
     @PostMapping
@@ -54,7 +54,7 @@ public class PostController {
     }
     /**
      * Post 수정
-     * @return ResponseEntity<PostResponse>
+     * @return ID
      */
     @ApiOperation(value = "모집글 수정", notes = "모집글의 ID 값을 통해 업데이트 한다.")
     @PutMapping("/{id}")
@@ -64,7 +64,7 @@ public class PostController {
 
     /**
      * Post 삭제
-     * @return ResponseEntity<PostResponse>
+     * @return ID
      */
     @ApiOperation(value = "모집글 삭제", notes = "모집글의 ID 값을 통해 삭제")
     @DeleteMapping("/{id}")
@@ -73,7 +73,7 @@ public class PostController {
     }
 
     /**
-     * Post 삭제
+     * Post 상세 조회
      * @return ResponseEntity<PostResponse>
      */
     @ApiOperation(value = "모집글 상세조회", notes = "모집글의 ID 값을 통해 상세 조회")

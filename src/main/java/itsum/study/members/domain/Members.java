@@ -22,7 +22,7 @@ import java.util.List;
 public class Members extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="members_id")
+    @Column
     private Long id;
     @Column
     private String name;
@@ -30,10 +30,6 @@ public class Members extends BaseEntity {
     private String nickname;
     @Column
     private String email;
-    @OneToMany(mappedBy = "members")
-    private List<Post> posts = new ArrayList<Post>();
-    @OneToMany(mappedBy = "members")
-    private List<Comment> comments = new ArrayList<Comment>();
     @Column(nullable = false)
     private String socialId;
     @Enumerated(EnumType.STRING)
@@ -43,12 +39,7 @@ public class Members extends BaseEntity {
     @Column(nullable = false)
     private RoleType roleType;
 
-
-
-
     public void updateNickname(String name) {
         this.name = name;
     }
-
-
 }

@@ -31,9 +31,8 @@ public class PostsResponseDto {
     private String positionList ;
     private int personnel;
     private String techSkill;
-    private String meetingWays ;
-    private Members members;
-    private List<CommentResponseDto> comments;
+    private String meetingWay ;
+    private String members;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 
@@ -45,10 +44,9 @@ public class PostsResponseDto {
         this.positionList = entity.getPositionList();
         this.personnel = entity.getPersonnel();
         this.techSkill = entity.getTechSkill();
-        this.meetingWays = entity.getMeetingWays();
+        this.meetingWay = entity.getMeetingWay();
         this.members = entity.getMembers();
         this.createdAt = entity.getCreatedAt();
         this.modifiedAt = entity.getModifiedAt();
-        this.comments = entity.getComments().stream().map(CommentResponseDto::new).collect(Collectors.toList());
     }
 }
