@@ -1,6 +1,6 @@
 package itsum.study.posts.repository;
 
-import static itsum.study.posts.domain.QPost.post;
+
 
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
@@ -20,6 +20,8 @@ import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static itsum.study.posts.domain.QPost.post;
 
 
 

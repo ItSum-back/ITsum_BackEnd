@@ -29,17 +29,24 @@ public class Post extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column
     private Long id;
+
+    @Column
     private String title;
+    @Column
     private String contents;
+    @Column
     private int view;
     @Column(name="position_list")
     private String positionList ;
+    @Column
     private int personnel;
     @Column(name="tech_skill")
     private String techSkill;
     @Column(name="meeting_way")
     private String meetingWay ;
+    @Column
     private boolean deleted = Boolean.FALSE; // 삭제 여부 기본값 false
+    @Column
     private String members;
 
     public void update(String title, String contents, String positionList, int personnel, String techSkill, String meetingWay, String members) {
