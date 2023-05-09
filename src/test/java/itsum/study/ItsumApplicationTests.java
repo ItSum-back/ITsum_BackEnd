@@ -1,15 +1,20 @@
 package itsum.study;
 
+import itsum.study.posts.common.SliceResult;
 import itsum.study.posts.domain.Post;
 import itsum.study.posts.dto.PostsResponseDto;
 import itsum.study.posts.repository.PostRepositoryImpl;
 import itsum.study.posts.repository.PostsRepository;
+import itsum.study.posts.service.PagingResponseService;
+import itsum.study.posts.service.PostsService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
 @SpringBootTest
@@ -18,7 +23,8 @@ class ItsumApplicationTests {
 
 	@Autowired
 	PostsRepository postsRepository ;
-	PostRepositoryImpl postRepositoryImpl;
+	PagingResponseService responseService;
+	PostsService postsService;
 
 
 
@@ -42,10 +48,12 @@ class ItsumApplicationTests {
 		postsRepository.save(new Post(14,"차"));
 		postsRepository.save(new Post(15,"카"));
 
-		Slice<PostsResponseDto> itemSlice = postRepositoryImpl.findAllPostPageableByOrderByCreatedAtDesc("가", PageRequest.of(0, 5));
 
-		for (PostsResponseDto item : itemSlice.getContent()) {
-			System.out.println(item);
+		SliceResult<PostsResponseDto> result = responseService.getSliceResult(
+				postsService.findPostAllByCreatedAtDesc("",PageRequest.of(0, 2)));
+
+		for(PostsResponseDto post : result.getData()){
+			System.out.println(post);
 		}
 
 

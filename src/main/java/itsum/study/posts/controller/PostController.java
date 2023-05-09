@@ -5,10 +5,12 @@ import itsum.study.auth.dto.AuthRequest;
 import itsum.study.auth.dto.AuthResponse;
 import itsum.study.auth.jwt.AuthToken;
 import itsum.study.auth.jwt.JwtHeaderUtil;
+import itsum.study.posts.common.SliceResult;
 import itsum.study.posts.domain.Post;
 import itsum.study.posts.dto.PostsCreateRequestDto;
 import itsum.study.posts.dto.PostsResponseDto;
 import itsum.study.posts.dto.PostsUpdateRequestDto;
+import itsum.study.posts.service.PagingResponseService;
 import itsum.study.posts.service.PostsService;
 import itsum.study.utils.dto.ApiResponse;
 import itsum.study.utils.dto.DataResponseDto;
@@ -19,6 +21,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,6 +35,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PostController {
     private final PostsService postsService;
+    private final PagingResponseService responseService;
+
 
     /**
      * Post 목록 생성 (무한 스크롤)
@@ -39,10 +44,11 @@ public class PostController {
      */
     @ApiOperation(value = "모집글 목록 생성", notes = "무한스크롤을 이용한 모집글 목록 생성")
     @GetMapping("")
-    public ResponseEntity<Slice<PostsResponseDto>> searchAllProducts(
+    public ResponseEntity<SliceResult<PostsResponseDto>> searchAllProducts(
             @RequestParam(value = "keyword",required = false) String keyword
             ,Pageable pageable) {
-        return ApiResponse.success(postsService.findPostAllByCreatedAtDesc(keyword,pageable));
+        return new ResponseEntity<>(responseService.getSliceResult(
+                postsService.findPostAllByCreatedAtDesc(keyword,pageable)), HttpStatus.OK);
     }
 
     /**
