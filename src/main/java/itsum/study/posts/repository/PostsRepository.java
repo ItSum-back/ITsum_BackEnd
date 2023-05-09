@@ -16,9 +16,9 @@ import java.util.List;
  * @Description : 게시글 도메인에 대한 레포지토리
  **/
 @Repository
-public interface PostsRepository extends JpaRepository<Post, Long>, PostRepositoryCustom {
+public interface PostsRepository extends JpaRepository<Post, Long> {
     Post findPostById(Long post_id);
-    Page<Post> findByTitleContaining(String keyword, Pageable pageable);
+    Slice<PostsResponseDto> findByTitleContaining(String title, Pageable pageable);
 
 
 }

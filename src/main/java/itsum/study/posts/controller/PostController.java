@@ -50,7 +50,6 @@ public class PostController {
             @RequestParam(value = "keyword",required = false) String keyword
             ,Pageable pageable) {
 
-        System.out.println("메롱");
 
         return new ResponseEntity<>(responseService.getSliceResult(
                 postsService.findPostAllByCreatedAtDesc(keyword,pageable)), HttpStatus.OK);
