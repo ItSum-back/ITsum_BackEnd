@@ -59,7 +59,12 @@ public class Post extends BaseEntity {
         this.members = members;
     }
 
+    public Post(long id, String title){
+        this.id= id;
+        this.title = title;
+    }
+
     public void delete() {
-        this.deleted = true;
+       this.deleted = true;
     }
 }

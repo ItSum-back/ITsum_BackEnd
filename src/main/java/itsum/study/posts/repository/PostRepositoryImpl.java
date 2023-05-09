@@ -44,11 +44,14 @@ public class PostRepositoryImpl implements PostRepositoryCustom {
         }
         List<PostsResponseDto> content=new ArrayList<>(PostsResponseDto.toPostListResponse(productQuery.fetch()));
         boolean hasNext =false;
-        //마지막 페이지는 사이즈가 항상 작다.
+        //실제 데이터의 개수 > 단일 페이지의 크기
+        // 뒷 페이지가 존재한다는 의미
         if(content.size() > pageable.getPageSize()) {
             content.remove(pageable.getPageSize());
             hasNext=true;
         }
+        //SliceImpl(List<T> content, Pageable pageable, boolean hasNext)
+        //Creates a new Slice with the given content and Pageable.
         return new SliceImpl<>(content,pageable,hasNext);
     }
     //동적 쿼리를 위한 BooleanExpression

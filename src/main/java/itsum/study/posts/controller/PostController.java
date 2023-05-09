@@ -42,7 +42,7 @@ public class PostController {
     public ResponseEntity<Slice<PostsResponseDto>> searchAllProducts(
             @RequestParam(value = "keyword",required = false) String keyword
             ,Pageable pageable) {
-        return ApiResponse.success(postsService.findProductAllByCreatedAtDesc(keyword,pageable));
+        return ApiResponse.success(postsService.findPostAllByCreatedAtDesc(keyword,pageable));
     }
 
     /**
@@ -68,9 +68,9 @@ public class PostController {
      * Post 삭제
      * @return ID
      */
-    @ApiOperation(value = "모집글 삭제", notes = "모집글의 ID 값을 통해 삭제")
-    @DeleteMapping("/{id}")
-    public Long deletePost(@PathVariable Long id) {
+   @ApiOperation(value = "모집글 삭제", notes = "모집글의 ID 값을 통해 삭제")
+      @DeleteMapping("/{id}")
+   public Long deletePost(@PathVariable Long id) {
         return postsService.delete(id);
     }
 

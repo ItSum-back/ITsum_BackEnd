@@ -19,6 +19,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
@@ -56,11 +57,11 @@ public class PostsService {
         return id;
     }
 
-    @Transactional
+   @Transactional
     public Long delete(Long id) {
         Post posts = postsRepository.findById(id).orElseThrow(()-> new IllegalArgumentException("해당 게시글이 없습니다. id= "+id));
-        posts.delete();
-        return id;
+       posts.delete();
+       return id;
     }
 
    /* search */
@@ -71,7 +72,10 @@ public class PostsService {
     }
 
 
-    public Slice<PostsResponseDto> findProductAllByCreatedAtDesc(String keyword, Pageable pageable) {
+    @Transactional
+    public Slice<PostsResponseDto> findPostAllByCreatedAtDesc(String keyword, Pageable pageable) {
+
+
         return postsRepository.findAllPostPageableByOrderByCreatedAtDesc(keyword,pageable);
     }
 }
