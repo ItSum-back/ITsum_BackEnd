@@ -1,6 +1,7 @@
 package itsum.study.posts.controller;
 
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import itsum.study.auth.dto.AuthRequest;
 import itsum.study.auth.dto.AuthResponse;
 import itsum.study.auth.jwt.AuthToken;
@@ -43,10 +44,14 @@ public class PostController {
      * @return ResponseEntity<PostResponse>
      */
     @ApiOperation(value = "모집글 목록 생성", notes = "무한스크롤을 이용한 모집글 목록 생성")
-    @GetMapping("")
-    public ResponseEntity<SliceResult<PostsResponseDto>> searchAllProducts(
+    @GetMapping
+    public ResponseEntity<SliceResult<PostsResponseDto>> searchAllPosts(
+            @ApiParam(value = "keyword", required = false)
             @RequestParam(value = "keyword",required = false) String keyword
             ,Pageable pageable) {
+
+        System.out.println("메롱");
+
         return new ResponseEntity<>(responseService.getSliceResult(
                 postsService.findPostAllByCreatedAtDesc(keyword,pageable)), HttpStatus.OK);
     }

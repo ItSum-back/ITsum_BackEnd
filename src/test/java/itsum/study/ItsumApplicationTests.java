@@ -49,12 +49,7 @@ class ItsumApplicationTests {
 		postsRepository.save(new Post(15,"카"));
 
 
-		SliceResult<PostsResponseDto> result = responseService.getSliceResult(
-				postsService.findPostAllByCreatedAtDesc("",PageRequest.of(0, 2)));
 
-		for(PostsResponseDto post : result.getData()){
-			System.out.println(post);
-		}
 
 
 

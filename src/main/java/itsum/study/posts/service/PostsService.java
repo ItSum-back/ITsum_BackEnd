@@ -73,9 +73,8 @@ public class PostsService {
 
 
     @Transactional
-    public Slice<PostsResponseDto> findPostAllByCreatedAtDesc(String keyword, Pageable pageable) {
+    public Slice<PostsResponseDto> findPostAllByCreatedAtDesc( String keyword, Pageable pageable) {
 
-
-        return postsRepository.findAllPostPageableByOrderByCreatedAtDesc(keyword,pageable);
+        return postsRepository.findByTitleOrderByCreatedAtDesc(keyword,pageable);
     }
 }

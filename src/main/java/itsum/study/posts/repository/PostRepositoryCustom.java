@@ -8,8 +8,8 @@ import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Pageable;
 
 public interface PostRepositoryCustom {
-    // Page<PostsResponseDto> getReadAllPost(Pageable pageable, String articleFlag);
 
-    Slice<PostsResponseDto> findAllPostPageableByOrderByCreatedAtDesc(String keyword, Pageable pageable);
+
+    Slice<PostsResponseDto> findByTitleOrderByCreatedAtDesc( String keyword, Pageable pageable);
 
 }

@@ -2,6 +2,7 @@ package itsum.study.posts.repository;
 
 
 
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -32,10 +33,10 @@ public class PostRepositoryImpl implements PostRepositoryCustom {
 
 
     @Override
-    public Slice<PostsResponseDto> findAllPostPageableByOrderByCreatedAtDesc( String keyword, Pageable pageable) {
+    public Slice<PostsResponseDto> findByTitleOrderByCreatedAtDesc( String keyword, Pageable pageable) {
         JPAQuery<Post> productQuery= queryFactory
                 .selectFrom(post)
-                .where(keywordContains(keyword))
+                .where(keywordListContains(keyword))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize()+1); //limit보다 한 개 더 들고온다.
         for(Sort.Order o: pageable.getSort()) {
@@ -55,7 +56,13 @@ public class PostRepositoryImpl implements PostRepositoryCustom {
         return new SliceImpl<>(content,pageable,hasNext);
     }
     //동적 쿼리를 위한 BooleanExpression
-    private BooleanExpression keywordContains(String keyword) {
-        return ObjectUtils.isEmpty(keyword) ? null : post.title.contains(keyword);
+    private BooleanBuilder keywordListContains(String keyword) {
+        if(ObjectUtils.isEmpty(keyword)) return null;
+        BooleanBuilder builder=new BooleanBuilder();
+        String[] splitedKeyword = keyword.split(" ");
+        for(String value:splitedKeyword) {
+            builder.and(post.title.contains(value));
+        }
+        return builder;
     }
 }
