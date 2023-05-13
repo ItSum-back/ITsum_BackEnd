@@ -73,7 +73,9 @@ public class PostsService {
 
 
     @Transactional
-    public Slice<PostsResponseDto> findPostAllByCreatedAtDesc( String title, Pageable pageable) {
+    public Slice<PostsResponseDto> findPostAllByCreatedAtDesc( String title, String contents,
+                                                               String positionList, String techSkill,
+                                                               String meetingWay, Pageable pageable) {
 
 
        Slice<PostsResponseDto> slice =  postsRepository.findByTitleContaining(title,pageable);
@@ -82,6 +84,8 @@ public class PostsService {
             System.out.println("제목:"+dto.getTitle());
         }
 
-        return postsRepository.findByTitleContaining(title,pageable);
+        return postsRepository.findAllPostsOrderByCreatedAtDesc( title, contents,
+                                                                 positionList, techSkill,
+                                                                 meetingWay, pageable);
     }
 }
