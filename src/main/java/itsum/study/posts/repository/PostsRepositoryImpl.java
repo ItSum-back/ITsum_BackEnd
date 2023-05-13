@@ -1,8 +1,10 @@
 package itsum.study.posts.repository;
 
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Predicate;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.PathBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -14,6 +16,7 @@ import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.SliceImpl;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,22 +60,26 @@ public class PostsRepositoryImpl implements PostsRepositoryCustom{
         return new SliceImpl<>(content,pageable,hasNext);
     }
 
-    private Predicate containsMeetingWay(String meetingWay) {
+    private  BooleanExpression containsMeetingWay(String meetingWay) {
+        return ObjectUtils.isEmpty(meetingWay) ? null : post.meetingWay.contains(meetingWay);
     }
 
-    private Predicate containsTechskill(String techSkill) {
-        return o;
+    private  BooleanExpression  containsTechskill(String techSkill) {
+        return ObjectUtils.isEmpty(techSkill) ? null : post.techSkill.contains(techSkill);
     }
 
-    private Predicate containsPosition(String positionList) {
-        return null;
+    private  BooleanExpression  containsPosition(String positionList) {
+        return ObjectUtils.isEmpty(positionList) ? null : post.positionList.contains(positionList);
+
     }
 
-    private Predicate containsContents(String contents) {
-        return null;
+    private  BooleanExpression  containsContents(String contents) {
+        return ObjectUtils.isEmpty(contents) ? null : post.contents.contains(contents);
+
     }
 
-    private Predicate containsTitle(String title) {
-        return null;
+    private  BooleanExpression  containsTitle(String title) {
+        return ObjectUtils.isEmpty(title) ? null : post.title.contains(title);
+
     }
 }
