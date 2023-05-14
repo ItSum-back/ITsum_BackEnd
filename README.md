@@ -15,6 +15,7 @@ Connection : keep-alive
 Content-Type : application/json
 
 ```
+Body
 ```
  {
 "accessToken":""
