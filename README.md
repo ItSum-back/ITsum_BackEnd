@@ -6,8 +6,6 @@ Request
 ```jsx
 POST /auth/kakao HTTP 1.1
 
-Authorization:  access token
-
 Accept :  */*
 
 Connection : keep-alive
