@@ -14,12 +14,7 @@ Connection : keep-alive
 
 Content-Type : application/json
 
-```
-Body
-```
- {
-"accessToken":""
-    }
+{"accessToken": "accessToken을 Body에 담아서 주세요. " }
 ```
 
 
