@@ -85,7 +85,7 @@ public class PostsService {
         }
 
         return postsRepository.findAllPostsOrderByCreatedAtDesc( title, contents,
-                                                                 positionList, techSkill,
+                                                                 positionList,   techSkill,
                                                                  meetingWay, pageable);
     }
 }

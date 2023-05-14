@@ -59,7 +59,7 @@ public class Post extends BaseEntity {
         this.members = members;
     }
 
-    public Post(long id, String title){
+    public Post(long id, String title,String contents , String techSkill, String meetingWay, String positionList){
         this.id= id;
         this.title = title;
     }

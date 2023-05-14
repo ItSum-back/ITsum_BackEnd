@@ -34,12 +34,11 @@ public class PostsRepositoryImpl implements PostsRepositoryCustom{
                                                                     String meetingWay, Pageable pageable) {
         JPAQuery<Post> postQuery = queryFactory
                 .selectFrom(post)
-                .where(
-                        containsTitle(title),
-                        containsContents(contents),
-                        containsPosition(positionList),
-                        containsTechskill(techSkill),
-                        containsMeetingWay(meetingWay)
+                .where(  containsTitle(title)
+                        .or( containsContents(contents))
+                        .or(containsPosition(positionList))
+                        .or(containsTechskill(techSkill))
+                        .or(containsMeetingWay(meetingWay))
                 )
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize()+1);
