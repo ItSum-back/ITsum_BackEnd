@@ -1,32 +1,76 @@
 # ITsum_BackEnd
-코딩 스터디 모임 프로젝트 입니다.
+**Kakao** , **Google**
 
-1. 해당 저장소를 clone 합니다.
+Request 
+
+```jsx
+POST /auth/kakao HTTP 1.1
+
+Authorization:  access token
+
+Accept :  */*
+
+Connection : keep-alive
+
+Content-Type : application/json
 
 ```
-$ git clone https://github.com/ItSum-back/ITsum_BackEnd.git
 ```
-            
-2. clone 한 디렉터리로 이동 후 본인 이름(github id)의 브랜치로 체크아웃 합니다.
-
-``` 
-$ git checkout -b {github_id}
-ex) git checkout -b jeon-cj
-```    
-
-3. 변경 사항을 add/commit/push 합니다.
-
-``` 
-$ git add .
-$ git commit -m " 정하기 "
-$ git push origin {본인 브랜치 명}
+ {
+"accessToken":""
+    }
 ```
-      
-4. Github에서 Pull Request를 등록합니다.
-  6-1) 저장소 내 `Pull requests` 메뉴로 이동
-  6-2) `New pull request` 버튼 클릭
-  6-3) base 브랜치는 `master`, compare 브랜치를 `{본인 브랜츠 명}`으로 설정
-  6-4) 제목과 내용을 작성하고 `Create pull request` 를 클릭하여 PR 등록
 
-5. 온라인 및 오프라인 만남 후에 본인의 PR을 `Merge pull request` 버튼을 눌러 반영(merge)합니다.
+
+Response
+
+```jsx
+HTTP/1.1 : 200OK
+Content-Type : application/json
+
+{
+    "appToken": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyNzcxMzc0MTA0Iiwicm9sZSI6IlJPTEVfVVNFUiIsImV4cCI6MTY4MzI4NTc0NH0.o0Um132beR0w8sPSU7Hx5VMhv5mqxlR5zGwWnXrS1Bg",
+    "isNewMember": true
+}
+```
+
+**Refresh**
+
+Request 
+
+```jsx
+GET /auth/refresh HTTP 1.1
+
+Authorization:  Bearer appToken
+
+Accept : */*
+
+Connection : keep-alive
+
+Content-Type : application/json
+
+Authorization: Bearer appToken
+
+```
+
+Response
+
+```jsx
+HTTP/1.1 : 200OK
+Content-Type : application/json
+
+{
+    "appToken": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyNzcxMzc0MTA0Iiwicm9sZSI6IlJPTEVfVVNFUiIsImV4cCI6MTY4MzI4NjI2N30.RBpZ9sFgC1uak1WpAA0hwHGshxMj8xXnnWvB4aB4hsM",
+    "isNewMember": null
+}
+
+```
+
+- 만료에 대한 응답 
+
+---
+
+```jsx
+상태코드 : 403 forbidden
+```
 
