@@ -1,22 +1,11 @@
 package itsum.study.posts.domain;
-
-import itsum.study.comment.domain.Comment;
-import itsum.study.members.domain.Members;
 import itsum.study.utils.domain.BaseEntity;
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
-import static javax.persistence.GenerationType.IDENTITY;
-
 @Getter
 @Entity
 @Builder
@@ -61,21 +50,19 @@ public class Post extends BaseEntity {
     @Column
     private String contact;
 
-    public void update(String title, String contents, String positionList, int personnel,
-                       String techSkill, String meetingWay, String members, String category, LocalDateTime projectStartTime, LocalDateTime projectEndTime,
-                       LocalDateTime deadline, String contact) {
-        this.title = title;
-        this.contents = contents;
-        this.positionList = positionList;
-        this.personnel = personnel;
-        this.techSkill = techSkill;
-        this.meetingWay = meetingWay;
-        this.members = members;
-        this.category = category;
-        this.projectStartTime = projectStartTime;
-        this.projectEndTime = projectEndTime;
-        this.deadline = deadline;
-        this.contact = contact;
+    public void update(Post requestDto) {
+        this.title = requestDto.getTitle();
+        this.contents = requestDto.getContents();
+        this.positionList = requestDto.getPositionList();
+        this.personnel = requestDto.getPersonnel();
+        this.techSkill = requestDto.getTechSkill();
+        this.meetingWay = requestDto.getMeetingWay();
+        this.members = requestDto.getMembers();
+        this.category = requestDto.getCategory();
+        this.projectStartTime = requestDto.getProjectStartTime();
+        this.projectEndTime = requestDto.getProjectEndTime();
+        this.deadline = requestDto.getDeadline();
+        this.contact = requestDto.getContact();
     }
 
     public Post(long id, String title,String contents , String techSkill, String meetingWay, String positionList){

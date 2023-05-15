@@ -51,8 +51,7 @@ public class PostsService {
 
         //JPA 의 영속성 컨텍스트 덕분에 entity 객체의 값만 변경하면 자동으로 변경사항 반영
         //따라서 repository에서 update를 하지 않아도 된다.
-        posts.update(requestDto.getTitle(), requestDto.getContents(), requestDto.getPositionList(), requestDto.getPersonnel(), requestDto.getTechSkill(),
-                requestDto.getMeetingWay(), requestDto.getMembers(), requestDto.getCategory(), requestDto.getPostStartTime(), requestDto.getPostEndTime(),requestDto.getDeadline(), requestDto.getContact());
+        posts.update(requestDto.toEntity());
         return id;
     }
 

@@ -20,15 +20,15 @@ public class PostsCreateRequestDto {
     private String meetingWay ;
     private String members;
     private String category;
-    private LocalDateTime postStartTime;
-    private LocalDateTime postEndTime;
+    private LocalDateTime projectStartTime;
+    private LocalDateTime projectEndTime;
     private LocalDateTime deadline;
     private String contact;
 
     //resquest dto 로 받은 Posts 객체를 entity 화하여 저장하는 용도
     public Post toEntity() {
         return Post.builder().title(title).contents(contents).positionList(positionList).personnel(personnel)
-                .techSkill(techSkill).meetingWay(meetingWay).members(members).category(category).postStartTime(postStartTime).postEndTime(postEndTime).deadline(deadline)
+                .techSkill(techSkill).meetingWay(meetingWay).members(members).category(category).projectStartTime(projectStartTime).projectEndTime(projectEndTime).deadline(deadline)
                 .contact(contact).build();
     }
 }
