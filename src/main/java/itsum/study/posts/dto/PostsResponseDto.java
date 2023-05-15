@@ -35,6 +35,11 @@ public class PostsResponseDto {
     private String members;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
+    private String category;
+    private LocalDateTime projectStartTime;
+    private LocalDateTime projectEndTime;
+    private LocalDateTime deadline;
+    private String contact;
 
     public PostsResponseDto(Post entity) {
         this.id = entity.getId();
@@ -48,7 +53,12 @@ public class PostsResponseDto {
         this.members = entity.getMembers();
         this.createdAt = entity.getCreatedAt();
         this.modifiedAt = entity.getModifiedAt();
+        this.category = entity.getCategory();
+        this.projectStartTime = entity.getProjectStartTime();
+        this.projectEndTime = entity.getProjectEndTime();
+        this.contact = entity.getContact();
     }
+
     public static ArrayList<PostsResponseDto> toPostListResponse(List<Post> fetch) {
 
         ArrayList<PostsResponseDto> responseDtoList = new ArrayList<>();
