@@ -50,22 +50,22 @@ public class Post extends BaseEntity {
     @Column
     private String contact;
 
-    public void update(Post requestDto) {
-        this.title = requestDto.getTitle();
-        this.contents = requestDto.getContents();
-        this.positionList = requestDto.getPositionList();
-        this.personnel = requestDto.getPersonnel();
-        this.techSkill = requestDto.getTechSkill();
-        this.meetingWay = requestDto.getMeetingWay();
-        this.members = requestDto.getMembers();
-        this.category = requestDto.getCategory();
-        this.projectStartTime = requestDto.getProjectStartTime();
-        this.projectEndTime = requestDto.getProjectEndTime();
-        this.deadline = requestDto.getDeadline();
-        this.contact = requestDto.getContact();
+    public void update(Post entity) {
+        this.title = entity.getTitle();
+        this.contents = entity.getContents();
+        this.positionList = entity.getPositionList();
+        this.personnel = entity.getPersonnel();
+        this.techSkill = entity.getTechSkill();
+        this.meetingWay = entity.getMeetingWay();
+        this.members = entity.getMembers();
+        this.category = entity.getCategory();
+        this.projectStartTime = entity.getProjectStartTime();
+        this.projectEndTime = entity.getProjectEndTime();
+        this.deadline = entity.getDeadline();
+        this.contact = entity.getContact();
     }
 
-    public Post(long id, String title,String contents , String techSkill, String meetingWay, String positionList){
+    public Post(long id, String title){
         this.id= id;
         this.title = title;
     }
