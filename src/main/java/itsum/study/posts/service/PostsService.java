@@ -9,6 +9,7 @@ import itsum.study.members.domain.Members;
 import itsum.study.members.repository.MemberQuerydslRepository;
 import itsum.study.posts.domain.Post;
 import itsum.study.posts.dto.PostsCreateRequestDto;
+import itsum.study.posts.dto.PostsListResponseDto;
 import itsum.study.posts.dto.PostsResponseDto;
 import itsum.study.posts.dto.PostsUpdateRequestDto;
 import itsum.study.posts.repository.PostsRepository;
@@ -71,9 +72,9 @@ public class PostsService {
 
 
     @Transactional
-    public Slice<PostsResponseDto> findPostAllByCreatedAtDesc( String title, String contents,
-                                                               String positionList, String techSkill,
-                                                               String meetingWay, Pageable pageable) {
+    public Slice<PostsListResponseDto> findPostAllByCreatedAtDesc(String title, String contents,
+                                                                  String positionList, String techSkill,
+                                                                  String meetingWay, Pageable pageable) {
 
 
        Slice<PostsResponseDto> slice =  postsRepository.findByTitleContaining(title,pageable);

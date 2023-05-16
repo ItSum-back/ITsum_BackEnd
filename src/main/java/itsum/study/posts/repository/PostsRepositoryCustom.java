@@ -1,6 +1,7 @@
 package itsum.study.posts.repository;
 
-import itsum.study.posts.dto.PostsResponseDto;
+import itsum.study.posts.domain.Post;
+import itsum.study.posts.dto.PostsListResponseDto;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 
@@ -14,6 +15,6 @@ public interface PostsRepositoryCustom {
     //private String meetingWay ;
 
 
-    Slice<PostsResponseDto> findAllPostsOrderByCreatedAtDesc(final String title,final String contents, final String positionList,
-                                                             final String techSkill, final String meetingWay, Pageable pageable);
+    Slice<PostsListResponseDto> findAllPostsOrderByCreatedAtDesc(final String title, final String contents, final String positionList,
+                                                                 final String techSkill, final String meetingWay, Pageable pageable);
 }

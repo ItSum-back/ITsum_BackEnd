@@ -9,6 +9,7 @@ import itsum.study.auth.jwt.JwtHeaderUtil;
 import itsum.study.posts.common.SliceResult;
 import itsum.study.posts.domain.Post;
 import itsum.study.posts.dto.PostsCreateRequestDto;
+import itsum.study.posts.dto.PostsListResponseDto;
 import itsum.study.posts.dto.PostsResponseDto;
 import itsum.study.posts.dto.PostsUpdateRequestDto;
 import itsum.study.posts.service.PagingResponseService;
@@ -45,7 +46,7 @@ public class PostController {
      */
     @ApiOperation(value = "모집글 목록 생성", notes = "무한스크롤을 이용한 모집글 목록 생성")
     @GetMapping
-    public ResponseEntity<SliceResult<PostsResponseDto>> searchAllPosts(
+    public ResponseEntity<SliceResult<PostsListResponseDto>> searchAllPosts(
             @ApiParam(value = "title", required = false)
             @RequestParam(value = "title",required = false) String title,
             @ApiParam(value = "contents", required = false)

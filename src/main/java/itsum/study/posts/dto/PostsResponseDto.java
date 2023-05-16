@@ -59,13 +59,5 @@ public class PostsResponseDto {
         this.contact = entity.getContact();
     }
 
-    public static ArrayList<PostsResponseDto> toPostListResponse(List<Post> fetch) {
 
-        ArrayList<PostsResponseDto> responseDtoList = new ArrayList<>();
-
-        for(Post p : fetch){
-            responseDtoList.add(new PostsResponseDto(p));
-        }
-        return responseDtoList;
-    }
 }

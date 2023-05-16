@@ -1,15 +1,14 @@
 package itsum.study.posts.repository;
 
-import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
-import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.DateTimePath;
 import com.querydsl.core.types.dsl.PathBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import itsum.study.posts.domain.Post;
-import itsum.study.posts.dto.PostsResponseDto;
+import itsum.study.posts.dto.PostsListResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -18,8 +17,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ObjectUtils;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static itsum.study.posts.domain.QPost.post;
 
@@ -28,10 +30,14 @@ import static itsum.study.posts.domain.QPost.post;
 public class PostsRepositoryImpl implements PostsRepositoryCustom{
 
     private final JPAQueryFactory queryFactory;
+
+
     @Override
-    public Slice<PostsResponseDto> findAllPostsOrderByCreatedAtDesc(String title, String contents,
-                                                                    String positionList, String techSkill,
-                                                                    String meetingWay, Pageable pageable) {
+    public Slice<PostsListResponseDto> findAllPostsOrderByCreatedAtDesc(String title, String contents,
+                                                                        String positionList, String techSkill,
+                                                                        String meetingWay, Pageable pageable) {
+        LocalDateTime now = LocalDateTime.now();
+
         JPAQuery<Post> postQuery = queryFactory
                 .selectFrom(post)
                 .where(  containsTitle(title)
@@ -39,6 +45,7 @@ public class PostsRepositoryImpl implements PostsRepositoryCustom{
                         .or(containsPosition(positionList))
                         .or(containsTechskill(techSkill))
                         .or(containsMeetingWay(meetingWay))
+                        .and(afterSth(post.deadline, now))
                 )
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize()+1);
@@ -48,7 +55,7 @@ public class PostsRepositoryImpl implements PostsRepositoryCustom{
             postQuery.orderBy(new OrderSpecifier(o.isAscending() ? Order.ASC:Order.DESC, pathBuilder.get(o.getProperty())));
         }
 
-        List<PostsResponseDto> content = new ArrayList<>(PostsResponseDto.toPostListResponse(postQuery.fetch()));
+        List<PostsListResponseDto> content = new ArrayList<>(PostsListResponseDto.toPostListResponse(postQuery.fetch()));
         boolean hasNext = false;
 
         if(content.size() > pageable.getPageSize()){
@@ -80,5 +87,12 @@ public class PostsRepositoryImpl implements PostsRepositoryCustom{
     private  BooleanExpression  containsTitle(String title) {
         return ObjectUtils.isEmpty(title) ? null : post.title.contains(title);
 
+    }
+
+    private BooleanExpression afterSth(DateTimePath<LocalDateTime> deadline, LocalDateTime compare) {
+        if (Objects.isNull(deadline) || Objects.isNull(compare)) {
+            return null;
+        }
+        return deadline.after(compare);
     }
 }

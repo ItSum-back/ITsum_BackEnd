@@ -14,13 +14,34 @@ spring:
         show_sql: true #show sql
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/itsum_db?serverTimezone=Asia/Seoul
-    username: cos
+    url: jdbc:mysql://localhost:3306/itsum?serverTimezone=Asia/Seoul
+    username: root
     password: 7351
+  security:
+    oauth2:
+      client:
+        registration:
+          kakao:
+            client-id: 8a7f95d051ea6cd60d81cb925bdce26a
+            client-secret: 6gUxoesKMhlLoUDKQ5Nf2RX4XcTAHuMn
+            redirect-uri: "http://localhost:8080/login/oauth2/code/kakao"
+            client-authentication-method: POST
+            authorization-grant-type: authorization_code
+          google:
+            clientId: 135985880546-0p76g773d2ctglkjtlr6gb8034uk9mln.apps.googleusercontent.com
+            clientSecret: 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
+            redirectUri: "http://localhost:8080/login/oauth2/code/google"
+            scope: profile,email
+        provider:
+          kakao:
+            authorization-uri: https://kauth.kakao.com/oauth/authorize
+            token-uri: https://kauth.kakao.com/oauth/token
+            user-info-uri: https://kapi.kakao.com/v2/user/me
+            user-name-attribute: id
 app:
   auth:
     tokenSecret: 04ca023b39512e46d0c2cf4b48d5aac61d34302994c87ed4eff225dcf3b0a218739f3897051a057f9b846a69ea2927a587044164b7bae5e1306219d50b588cb1
-    tokenExpiry: 864000000
+    tokenExpiry: 86400000
 logging:
   level:
     org.hibernate:

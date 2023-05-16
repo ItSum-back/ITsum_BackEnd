@@ -21,10 +21,16 @@ public class QPost extends EntityPathBase<Post> {
 
     public final itsum.study.utils.domain.QBaseEntity _super = new itsum.study.utils.domain.QBaseEntity(this);
 
+    public final StringPath category = createString("category");
+
+    public final StringPath contact = createString("contact");
+
     public final StringPath contents = createString("contents");
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
+
+    public final DateTimePath<java.time.LocalDateTime> deadline = createDateTime("deadline", java.time.LocalDateTime.class);
 
     public final BooleanPath deleted = createBoolean("deleted");
 
@@ -40,6 +46,10 @@ public class QPost extends EntityPathBase<Post> {
     public final NumberPath<Integer> personnel = createNumber("personnel", Integer.class);
 
     public final StringPath positionList = createString("positionList");
+
+    public final DateTimePath<java.time.LocalDateTime> projectEndTime = createDateTime("projectEndTime", java.time.LocalDateTime.class);
+
+    public final DateTimePath<java.time.LocalDateTime> projectStartTime = createDateTime("projectStartTime", java.time.LocalDateTime.class);
 
     public final StringPath techSkill = createString("techSkill");
 
