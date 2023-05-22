@@ -28,30 +28,18 @@ public class Comment extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="comment_id")
     private Long id;
+    @Column
     private String contents;
-    //member
-    @ManyToOne
-    @JoinColumn(name="members_id")
-    private Members members;
     //post
-    @ManyToOne
-    @JoinColumn(name="post_id")
-    private Post post;
+    @Column(name="post_id")
+    private Long post_id;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parent_id")
+    @JoinColumn(name = "parent")
     private Comment parent;
-    @Builder.Default
     @OneToMany(mappedBy = "parent", orphanRemoval = true)
     private List<Comment> children = new ArrayList<>();
     // 부모 댓글 수정
     public void updateParent(Comment parent){
         this.parent = parent;
     }
-
-
-
-
-
-
-
 }
