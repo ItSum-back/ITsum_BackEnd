@@ -29,6 +29,10 @@ public class Comment extends BaseEntity {
     private String contents;
     @Column
     private String creatorName;
+
+    @Column
+    private boolean deleted = Boolean.FALSE; // 삭제 여부 기본값 false
+    
     //post
     @Column(name="post_id")
     private Long post_id;
