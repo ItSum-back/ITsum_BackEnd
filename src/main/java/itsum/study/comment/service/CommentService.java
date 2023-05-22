@@ -1,5 +1,6 @@
 package itsum.study.comment.service;
 
+import itsum.study.comment.domain.Comment;
 import itsum.study.comment.dto.CommentsCreateRequestDto;
 import itsum.study.comment.repository.CommentRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,5 +16,14 @@ public class CommentService {
     @Transactional
     public Long saveComments(Long post_id, CommentsCreateRequestDto commentsCreateRequestDto) {
         return commentsRepository.save(commentsCreateRequestDto.toEntity(post_id)).getId();
+    }
+
+    @Transactional
+    public Long updateComments(Long commentId, String updateContents) {
+
+        Comment comment = commentsRepository.findById(commentId).orElseThrow(()-> new IllegalArgumentException("해당 댓글은 없습니다. id= "+commentId));;
+        comment.setContents(updateContents);
+
+        return commentsRepository.save(comment).getId();
     }
 }

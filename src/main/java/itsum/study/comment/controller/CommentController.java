@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -31,11 +33,13 @@ public class CommentController {
      * Commnet 수정
      * @return ID
      */
-   // @ApiOperation(value = "댓글 수정", notes = "모집글의 ID 값을 통해 업데이트 한다.")
-    //@PutMapping("posts/comments/{commentId}")
-    //public DataResponseDto<Long> updateComment(@PathVariable Long comment_id)
+    @ApiOperation(value = "댓글 수정", notes = "댓글 ID 값을 통해 업데이트한다.")
+    @PutMapping("posts/comments/{commentId}")
+    public DataResponseDto<Long> updateComment(@PathVariable Long commentId ,@RequestBody Map<String,String> contentsMap){
 
-
+        return DataResponseDto.of(commentsService.updateComments(commentId,contentsMap.get("contents")));
+    }
+    
     // /posts/{postId}/comments/{commentId} 삭제
 
     // /posts/{postId}/comments/{commetId}/reply 대댓글 등록

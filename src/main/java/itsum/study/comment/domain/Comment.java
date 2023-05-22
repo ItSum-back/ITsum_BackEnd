@@ -3,10 +3,7 @@ package itsum.study.comment.domain;
 import itsum.study.members.domain.Members;
 import itsum.study.posts.domain.Post;
 import itsum.study.utils.domain.BaseEntity;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -16,7 +13,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
+@Data
 @Entity
 @Builder
 @NoArgsConstructor
