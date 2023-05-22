@@ -30,6 +30,8 @@ public class Comment extends BaseEntity {
     private Long id;
     @Column
     private String contents;
+    @Column
+    private String creatorName;
     //post
     @Column(name="post_id")
     private Long post_id;
