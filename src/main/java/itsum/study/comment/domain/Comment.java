@@ -19,8 +19,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Comment extends BaseEntity {
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column
@@ -29,29 +27,16 @@ public class Comment extends BaseEntity {
     private String contents;
     @Column
     private String creatorName;
-
-    @Column
-    private boolean deleted = Boolean.FALSE; // 삭제 여부 기본값 false
-
     //post
     @Column(name="post_id")
     private Long post_id;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent")
     private Comment parent;
-
-
     @OneToMany(mappedBy = "parent", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Comment> children = new ArrayList<>();
     // 부모 댓글 수정
     public void updateParent(Comment parent){
         this.parent = parent;
     }
-
-    public void delete() {
-        this.deleted = true;
-    }
-
-
-
 }

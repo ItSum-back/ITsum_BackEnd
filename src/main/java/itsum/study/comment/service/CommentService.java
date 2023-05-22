@@ -30,7 +30,6 @@ public class CommentService {
 
     @Transactional
     public Long delete(Long commentId) {
-
         Comment comment = commentsRepository.findById(commentId).orElseThrow(()-> new IllegalArgumentException("해당 댓글이 없습니다. id= "+commentId));
         comment.delete();
         return commentId;

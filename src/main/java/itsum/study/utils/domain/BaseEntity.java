@@ -30,6 +30,11 @@ public abstract class BaseEntity {
     @Column(name = "modified_at")
     private LocalDateTime modifiedAt;
 
+    @Column
+    private boolean deleted = Boolean.FALSE; // 삭제 여부 기본값 false
 
+    public void delete() {
+        this.deleted = true;
+    }
 }
 

@@ -34,8 +34,6 @@ public class Post extends BaseEntity {
     @Column(name="meeting_way")
     private String meetingWay ;
     @Column
-    private boolean deleted = Boolean.FALSE; // 삭제 여부 기본값 false
-    @Column
     private String members;
     @Column
     private String category;
@@ -69,10 +67,5 @@ public class Post extends BaseEntity {
     public Post(long id, String title){
         this.id= id;
         this.title = title;
-    }
-
-
-    public void delete() {
-       this.deleted = true;
     }
 }
