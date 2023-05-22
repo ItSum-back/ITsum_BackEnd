@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @SQLDelete(sql = "UPDATE post SET deleted = true WHERE post_id = ?")
 @Where(clause = "deleted = false") //
+@Table(name="post")
 public class Post extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -69,6 +70,7 @@ public class Post extends BaseEntity {
         this.id= id;
         this.title = title;
     }
+
 
     public void delete() {
        this.deleted = true;

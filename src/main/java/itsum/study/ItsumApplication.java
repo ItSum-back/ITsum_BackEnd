@@ -12,4 +12,6 @@ public class ItsumApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ItsumApplication.class, args);
 	}
+
+
 }

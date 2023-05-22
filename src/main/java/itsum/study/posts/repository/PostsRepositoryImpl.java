@@ -40,12 +40,12 @@ public class PostsRepositoryImpl implements PostsRepositoryCustom{
 
         JPAQuery<Post> postQuery = queryFactory
                 .selectFrom(post)
-                .where(  containsTitle(title)
+                .where( containsTitle(title)
                         .or( containsContents(contents))
                         .or(containsPosition(positionList))
                         .or(containsTechskill(techSkill))
                         .or(containsMeetingWay(meetingWay))
-                        .and(afterSth(post.deadline, now))
+                        .or(afterSth(post.deadline, now))
                 )
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize()+1);

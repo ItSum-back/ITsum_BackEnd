@@ -4,9 +4,10 @@ spring:
       enabled: true
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
 
     properties:
       hibernate:
@@ -14,7 +15,7 @@ spring:
         show_sql: true #show sql
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/itsum?serverTimezone=Asia/Seoul
+    url: jdbc:mysql://localhost:3306/test?serverTimezone=Asia/Seoul
     username: root
     password: 7351
   security:

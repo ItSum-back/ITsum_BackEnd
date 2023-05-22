@@ -69,8 +69,8 @@ public class PostController {
      */
     @ApiOperation(value = "모집글 생성", notes = "모집글을 생성한다.")
     @PostMapping
-    public Long createPost(@RequestBody PostsCreateRequestDto requestDto) {
-        return  postsService.savePost(requestDto);
+    public DataResponseDto<Long> createPost(@RequestBody PostsCreateRequestDto requestDto) {
+        return DataResponseDto.of(postsService.savePost(requestDto));
     }
     /**
      * Post 수정
@@ -86,9 +86,9 @@ public class PostController {
      * Post 삭제
      * @return ID
      */
-   @ApiOperation(value = "모집글 삭제", notes = "모집글의 ID 값을 통해 삭제")
-      @DeleteMapping("/{id}")
-   public Long deletePost(@PathVariable Long id) {
+    @ApiOperation(value = "모집글 삭제", notes = "모집글의 ID 값을 통해 삭제")
+    @DeleteMapping("/{id}")
+    public Long deletePost(@PathVariable Long id) {
         return postsService.delete(id);
     }
 

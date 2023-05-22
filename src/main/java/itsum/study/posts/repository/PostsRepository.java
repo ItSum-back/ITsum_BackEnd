@@ -18,6 +18,8 @@ import java.util.List;
 @Repository
 public interface PostsRepository extends JpaRepository<Post, Long> , PostsRepositoryCustom {
     Post findPostById(Long post_id);
+
+    // 테스트용
     Slice<PostsResponseDto> findByTitleContaining(String title, Pageable pageable);
 
 
