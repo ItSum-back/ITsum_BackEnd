@@ -33,14 +33,24 @@ public class CommentController {
      * Commnet 수정
      * @return ID
      */
-    @ApiOperation(value = "댓글 수정", notes = "댓글 ID 값을 통해 업데이트한다.")
+    @ApiOperation(value = "댓글 수정", notes = "댓글 ID 값을 통해 업데이트")
     @PutMapping("posts/comments/{commentId}")
     public DataResponseDto<Long> updateComment(@PathVariable Long commentId ,@RequestBody Map<String,String> contentsMap){
 
         return DataResponseDto.of(commentsService.updateComments(commentId,contentsMap.get("contents")));
     }
-    
+
     // /posts/{postId}/comments/{commentId} 삭제
+
+    /**
+     * 댓글 삭제
+     * @return ID
+     */
+    @ApiOperation(value = "댓글 삭제", notes = "댓글의 ID 값을 통해 삭제")
+    @DeleteMapping("/posts/comments/{commentId}")
+    public Long deletePost(@PathVariable Long commentId) {
+        return commentsService.delete(commentId);
+    }
 
     // /posts/{postId}/comments/{commetId}/reply 대댓글 등록
 
