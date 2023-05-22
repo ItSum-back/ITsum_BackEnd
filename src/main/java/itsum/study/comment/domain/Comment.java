@@ -38,10 +38,8 @@ public class Comment extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent")
     private Comment parent;
-<<<<<<< HEAD
 
-=======
->>>>>>> d3435276e17e0f864c036052ac6ec4a4e1ffd3db
+
     @OneToMany(mappedBy = "parent", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Comment> children = new ArrayList<>();
     // 부모 댓글 수정
