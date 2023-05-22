@@ -69,8 +69,8 @@ public class PostController {
      */
     @ApiOperation(value = "모집글 생성", notes = "모집글을 생성한다.")
     @PostMapping
-    public Long createPost(@RequestBody PostsCreateRequestDto requestDto) {
-        return  postsService.savePost(requestDto);
+    public DataResponseDto<Long> createPost(@RequestBody PostsCreateRequestDto requestDto) {
+        return DataResponseDto.of(postsService.savePost(requestDto));
     }
     /**
      * Post 수정
