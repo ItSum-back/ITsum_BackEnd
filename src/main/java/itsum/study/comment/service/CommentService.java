@@ -22,7 +22,7 @@ public class CommentService {
     @Transactional
     public Long updateComments(Long commentId, String updateContents) {
 
-        Comment comment = commentsRepository.findById(commentId).orElseThrow(()-> new IllegalArgumentException("해당 댓글이 없습니다. id= "+commentId));;
+        Comment comment = commentsRepository.findById(commentId).orElseThrow(()-> new IllegalArgumentException("해당 댓글이 없습니다. id= "+commentId));
         comment.setContents(updateContents);
 
         return commentsRepository.save(comment).getId();
@@ -30,7 +30,9 @@ public class CommentService {
 
     @Transactional
     public Long delete(Long commentId) {
-        commentsRepository.deleteById(commentId);
+
+        Comment comment = commentsRepository.findById(commentId).orElseThrow(()-> new IllegalArgumentException("해당 댓글이 없습니다. id= "+commentId));
+        comment.delete();
         return commentId;
     }
 }

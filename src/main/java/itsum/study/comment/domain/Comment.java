@@ -32,7 +32,7 @@ public class Comment extends BaseEntity {
 
     @Column
     private boolean deleted = Boolean.FALSE; // 삭제 여부 기본값 false
-    
+
     //post
     @Column(name="post_id")
     private Long post_id;
@@ -47,4 +47,11 @@ public class Comment extends BaseEntity {
     public void updateParent(Comment parent){
         this.parent = parent;
     }
+
+    public void delete() {
+        this.deleted = true;
+    }
+
+
+
 }
