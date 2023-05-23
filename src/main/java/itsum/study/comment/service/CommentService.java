@@ -1,10 +1,17 @@
 package itsum.study.comment.service;
 
 import itsum.study.comment.domain.Comment;
+import itsum.study.comment.dto.CommentListResponseDto;
+import itsum.study.comment.dto.CommentResponseDto;
 import itsum.study.comment.dto.CommentsCreateRequestDto;
 import itsum.study.comment.repository.CommentRepository;
+import itsum.study.comment.repository.CommentRepositoryCustom;
 import itsum.study.posts.domain.Post;
+import itsum.study.posts.dto.PostsListResponseDto;
+import itsum.study.posts.dto.PostsResponseDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +20,14 @@ import org.springframework.transaction.annotation.Transactional;
 public class CommentService {
 
     private final CommentRepository commentsRepository;
+    private final CommentRepositoryCustom commentsListRepository;
+
+
+    @Transactional
+    public Slice<CommentListResponseDto> findAllCommentsOrderByCreatedAtDesc(Long id, Pageable pageable) {
+        Slice<CommentListResponseDto> slice =  commentsListRepository.findAllCommentsOrderByCreatedAtDesc(id,pageable);
+        return slice;
+    }
 
     @Transactional
     public Long saveComments(Long post_id, CommentsCreateRequestDto commentsCreateRequestDto) {

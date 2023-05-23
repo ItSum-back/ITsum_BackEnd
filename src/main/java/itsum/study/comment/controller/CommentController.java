@@ -2,11 +2,20 @@ package itsum.study.comment.controller;
 
 
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.models.Response;
+import itsum.study.comment.dto.CommentListResponseDto;
 import itsum.study.comment.dto.CommentsCreateRequestDto;
 import itsum.study.comment.service.CommentService;
+import itsum.study.posts.common.SliceResult;
+import itsum.study.posts.dto.PostsListResponseDto;
+import itsum.study.posts.service.PagingResponseService;
 import itsum.study.utils.dto.DataResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -17,6 +26,19 @@ import java.util.Map;
 public class CommentController {
 
     private final CommentService commentsService;
+    private final PagingResponseService responseService;
+
+    /**
+     * Comment 등록
+     * @return ID
+     */
+    @ApiOperation(value = "댓글 목록 조회", notes = "게시글에 해당하는 댓글 리스트를 조회 합니다.")
+    @GetMapping("/posts/{postId}/comments")
+    public DataResponseDto<SliceResult<CommentListResponseDto>> ListComment(@PathVariable("postId") String id,
+            Pageable pageable) {
+        return DataResponseDto.of(responseService.getSliceResult(
+                commentsService.findAllCommentsOrderByCreatedAtDesc(Long.valueOf(id), pageable)));
+    }
 
     /**
      * Comment 등록
