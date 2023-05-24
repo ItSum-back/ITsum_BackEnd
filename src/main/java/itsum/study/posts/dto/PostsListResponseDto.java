@@ -12,30 +12,41 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PostsListResponseDto {
-
-
+        private Long id;
         private String title;
         private String contents;
         private String positionList;
         private String techSkill;
         private String meetingWay;
-        private int view;
-        // 작성자
+        private int personnel;
         private String members;
-        //모집 마감일
+        private LocalDateTime createdAt;
+        private LocalDateTime modifiedAt;
+        private String category;
+        private LocalDateTime projectStartTime;
+        private LocalDateTime projectEndTime;
         private LocalDateTime deadline;
+        private String contact;
+        private int view;
 
 
         public PostsListResponseDto(Post entity) {
-
+            this.id = entity.getId();
             this.title = entity.getTitle();
             this.contents = entity.getContents();
             this.view = entity.getView();
+            this.deadline = entity.getDeadline();
             this.positionList = entity.getPositionList();
+            this.personnel = entity.getPersonnel();
             this.techSkill = entity.getTechSkill();
             this.meetingWay = entity.getMeetingWay();
             this.members = entity.getMembers();
-            this.deadline = entity.getDeadline();
+            this.createdAt = entity.getCreatedAt();
+            this.modifiedAt = entity.getModifiedAt();
+            this.category = entity.getCategory();
+            this.projectStartTime = entity.getProjectStartTime();
+            this.projectEndTime = entity.getProjectEndTime();
+            this.contact = entity.getContact();
         }
 
       public static ArrayList<PostsListResponseDto> toPostListResponse(List<Post> fetch) {
