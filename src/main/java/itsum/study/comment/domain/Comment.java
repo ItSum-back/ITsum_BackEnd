@@ -4,6 +4,8 @@ import itsum.study.members.domain.Members;
 import itsum.study.posts.domain.Post;
 import itsum.study.utils.domain.BaseEntity;
 import lombok.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -18,6 +20,8 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@SQLDelete(sql = "UPDATE comment SET deleted = true WHERE id = ?")
+@Where(clause = "deleted = false") //
 public class Comment extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
