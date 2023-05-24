@@ -29,8 +29,8 @@ public class CommentController {
     private final PagingResponseService responseService;
 
     /**
-     * Comment 등록
-     * @return ID
+     * Comment 조회
+     * @return CommentListResponseDto
      */
     @ApiOperation(value = "댓글 목록 조회", notes = "게시글에 해당하는 댓글 리스트를 조회 합니다.")
     @GetMapping("/posts/{postId}/comments")
