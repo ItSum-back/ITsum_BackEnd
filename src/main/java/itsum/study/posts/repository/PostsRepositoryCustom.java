@@ -1,6 +1,6 @@
 package itsum.study.posts.repository;
 
-import itsum.study.posts.domain.Post;
+
 import itsum.study.posts.dto.PostsListResponseDto;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;

@@ -41,11 +41,11 @@ public class PostsRepositoryImpl implements PostsRepositoryCustom{
         JPAQuery<Post> postQuery = queryFactory
                 .selectFrom(post)
                 .where( containsTitle(title)
-                        .or( containsContents(contents))
-                        .or(containsPosition(positionList))
-                        .or(containsTechskill(techSkill))
-                        .or(containsMeetingWay(meetingWay))
-                        .or(afterSth(post.deadline, now))
+                        ,containsContents(contents)
+                        ,containsPosition(positionList)
+                        ,containsTechskill(techSkill)
+                        ,containsMeetingWay(meetingWay)
+                         ,afterSth(post.deadline, now)
                 )
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize()+1);

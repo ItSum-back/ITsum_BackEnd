@@ -76,13 +76,6 @@ public class PostsService {
                                                                   String positionList, String techSkill,
                                                                   String meetingWay, Pageable pageable) {
 
-
-       Slice<PostsResponseDto> slice =  postsRepository.findByTitleContaining(title,pageable);
-
-        for(PostsResponseDto dto : slice.getContent()){
-            System.out.println("제목:"+dto.getTitle());
-        }
-
         return postsRepository.findAllPostsOrderByCreatedAtDesc( title, contents,
                                                                  positionList,  techSkill,
                                                                  meetingWay, pageable);
