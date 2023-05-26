@@ -10,9 +10,6 @@ import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import itsum.study.comment.domain.Comment;
 import itsum.study.comment.dto.CommentListResponseDto;
-import itsum.study.posts.domain.Post;
-import itsum.study.posts.dto.PostsListResponseDto;
-import itsum.study.posts.repository.PostsRepositoryCustom;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -20,12 +17,9 @@ import org.springframework.data.domain.SliceImpl;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ObjectUtils;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import static itsum.study.comment.domain.QComment.comment;
-import static itsum.study.posts.domain.QPost.post;
 
 @Repository
 @RequiredArgsConstructor

@@ -27,7 +27,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.awt.print.Book;
 import java.util.List;
 
@@ -46,7 +48,7 @@ public class PostController {
      */
     @ApiOperation(value = "모집글 목록 생성", notes = "무한스크롤을 이용한 모집글 목록 생성")
     @GetMapping
-    public ResponseEntity<SliceResult<PostsListResponseDto>> searchAllPosts(
+    public DataResponseDto<SliceResult<PostsListResponseDto>> searchAllPosts(
             @ApiParam(value = "title", required = false)
             @RequestParam(value = "title",required = false) String title,
             @ApiParam(value = "contents", required = false)
@@ -59,8 +61,8 @@ public class PostController {
             @RequestParam(value = "meetingWay",required = false) String meetingWay,
             Pageable pageable) {
 
-        return new ResponseEntity<>(responseService.getSliceResult(
-                postsService.findPostAllByCreatedAtDesc(title,contents,positionList,techSkill,meetingWay,pageable)), HttpStatus.OK);
+        return DataResponseDto.of(responseService.getSliceResult(
+                postsService.findPostAllByCreatedAtDesc(title,contents,positionList,techSkill,meetingWay,pageable)));
     }
 
     /**
@@ -98,8 +100,39 @@ public class PostController {
      */
     @ApiOperation(value = "모집글 상세조회", notes = "모집글의 ID 값을 통해 상세 조회")
     @GetMapping("/{id}")
-    public DataResponseDto<PostsResponseDto> GetPost (@PathVariable Long id) {
+    public DataResponseDto<PostsResponseDto> GetPost (@PathVariable Long id, HttpServletRequest req, HttpServletResponse res) {
+        /* 조회수 로직 */
+        viewCountUp(id,req,res);
         return DataResponseDto.of(postsService.findById(id));
+    }
+
+    private void viewCountUp(Long id, HttpServletRequest req, HttpServletResponse res) {
+        Cookie oldCookie = null;
+
+        Cookie[] cookies = req.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("post")) {
+                    oldCookie = cookie;
+                }
+            }
+        }
+
+        if (oldCookie != null) {
+            if (!oldCookie.getValue().contains("[" + id.toString() + "]")) {
+                postsService.updateView(id);
+                oldCookie.setValue(oldCookie.getValue() + "_[" + id + "]");
+                oldCookie.setPath("/");
+                oldCookie.setMaxAge(60 * 60 * 24);
+                res.addCookie(oldCookie);
+            }
+        } else {
+            postsService.updateView(id);
+            Cookie newCookie = new Cookie("boardView","[" + id + "]");
+            newCookie.setPath("/");
+            newCookie.setMaxAge(60 * 60 * 24);
+            res.addCookie(newCookie);
+        }
     }
 
 }

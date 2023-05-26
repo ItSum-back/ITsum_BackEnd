@@ -23,7 +23,7 @@ public class Post extends BaseEntity {
     private String title;
     @Column
     private String contents;
-    @Column
+    @Column(columnDefinition = "integer default 0", nullable = false)
     private int view;
     @Column(name="position_list")
     private String positionList ;
@@ -63,6 +63,12 @@ public class Post extends BaseEntity {
         this.deadline = entity.getDeadline();
         this.contact = entity.getContact();
     }
+
+    public void viewCountUp(Post post) {
+        this.view++;
+    }
+
+
 
     public Post(long id, String title){
         this.id= id;

@@ -63,11 +63,9 @@ public class PostsService {
        return id;
     }
 
-   /* search */
-   @Transactional
-    public Page<Post> search(Pageable pageable) {
-        Page<Post> postsList = postsRepository.findAll(pageable);
-        return postsList;
+    @Transactional
+    public int updateView(Long id) {
+        return postsRepository.updateView(id);
     }
 
 
