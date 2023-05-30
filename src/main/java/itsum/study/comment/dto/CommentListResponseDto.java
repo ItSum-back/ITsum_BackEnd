@@ -19,14 +19,13 @@ public class CommentListResponseDto {
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
     private String creatorName;
-    private Comment parent;
 
     public CommentListResponseDto(Comment c) {
         this.id = c.getId();
         this.contents = c.getContents();
-        this.createdAt = c.getModifiedAt();
+        this.createdAt = c.getCreatedAt();
+        this.modifiedAt = c.getModifiedAt();
         this.creatorName = c.getCreatorName();
-        this.parent = c.getParent();
     }
 
 

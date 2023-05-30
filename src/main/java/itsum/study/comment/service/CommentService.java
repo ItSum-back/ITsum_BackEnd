@@ -4,6 +4,7 @@ import itsum.study.comment.domain.Comment;
 import itsum.study.comment.dto.CommentListResponseDto;
 import itsum.study.comment.dto.CommentResponseDto;
 import itsum.study.comment.dto.CommentsCreateRequestDto;
+import itsum.study.comment.dto.ReCommentListResponseDto;
 import itsum.study.comment.repository.CommentRepository;
 import itsum.study.comment.repository.CommentRepositoryCustom;
 import itsum.study.posts.domain.Post;
@@ -26,6 +27,12 @@ public class CommentService {
     @Transactional
     public Slice<CommentListResponseDto> findAllCommentsOrderByCreatedAtDesc(Long id, Pageable pageable) {
         Slice<CommentListResponseDto> slice =  commentsListRepository.findAllCommentsOrderByCreatedAtDesc(id,pageable);
+        return slice;
+    }
+
+    @Transactional
+    public Slice<ReCommentListResponseDto> findAllReCommentsOrderByCreatedAtDesc(Long id, Pageable pageable) {
+        Slice<ReCommentListResponseDto> slice =  commentsListRepository.findAllReCommentsOrderByCreatedAtDesc(id,pageable);
         return slice;
     }
 

@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.models.Response;
 import itsum.study.comment.dto.CommentListResponseDto;
 import itsum.study.comment.dto.CommentsCreateRequestDto;
+import itsum.study.comment.dto.ReCommentListResponseDto;
 import itsum.study.comment.service.CommentService;
 import itsum.study.posts.common.SliceResult;
 import itsum.study.posts.dto.PostsListResponseDto;
@@ -27,6 +28,19 @@ public class CommentController {
 
     private final CommentService commentsService;
     private final PagingResponseService responseService;
+
+
+    /**
+     * Comment 대댓글 조회
+     * @return CommentListResponseDto
+     */
+    @ApiOperation(value = "대댓글 목록 조회", notes = "댓글에 해당하는 대댓글 리스트를 조회 합니다.")
+    @GetMapping("/recomments/{commentId}")
+    public DataResponseDto<SliceResult<ReCommentListResponseDto>> ListReComment(@PathVariable("commentId") String id,
+                                                                                Pageable pageable) {
+        return DataResponseDto.of(responseService.getSliceResult(
+                commentsService.findAllReCommentsOrderByCreatedAtDesc(Long.valueOf(id), pageable)));
+    }
 
     /**
      * Comment 조회
