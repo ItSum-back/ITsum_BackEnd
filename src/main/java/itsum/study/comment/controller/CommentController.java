@@ -33,7 +33,7 @@ public class CommentController {
      * @return CommentListResponseDto
      */
     @ApiOperation(value = "댓글 목록 조회", notes = "게시글에 해당하는 댓글 리스트를 조회 합니다.")
-    @GetMapping("/posts/{postId}/comments")
+    @GetMapping("/comments/{postId}")
     public DataResponseDto<SliceResult<CommentListResponseDto>> ListComment(@PathVariable("postId") String id,
             Pageable pageable) {
         return DataResponseDto.of(responseService.getSliceResult(
@@ -45,7 +45,7 @@ public class CommentController {
      * @return ID
      */
     @ApiOperation(value = "댓글 생성", notes = "게시글 id를 받아 댓글을 등록합니다.")
-    @PostMapping("/posts/{postId}/comments")
+    @PostMapping("/comments/{postId}")
     public DataResponseDto<Long> registerComment(@PathVariable Long postId,
                                                  @RequestBody CommentsCreateRequestDto commentsCreateRequestDto){
         return DataResponseDto.of(commentsService.saveComments(postId,commentsCreateRequestDto));
@@ -56,20 +56,18 @@ public class CommentController {
      * @return ID
      */
     @ApiOperation(value = "댓글 수정", notes = "댓글 ID 값을 통해 업데이트")
-    @PutMapping("posts/comments/{commentId}")
+    @PutMapping("/comments/{commentId}")
     public DataResponseDto<Long> updateComment(@PathVariable Long commentId ,@RequestBody Map<String,String> contentsMap){
 
         return DataResponseDto.of(commentsService.updateComments(commentId,contentsMap.get("contents")));
     }
-
-    // /posts/{postId}/comments/{commentId} 삭제
 
     /**
      * 댓글 삭제
      * @return ID
      */
     @ApiOperation(value = "댓글 삭제", notes = "댓글의 ID 값을 통해 삭제")
-    @DeleteMapping("/posts/comments/{commentId}")
+    @DeleteMapping("/comments/{postId}")
     public Long deletePost(@PathVariable Long commentId) {
         return commentsService.delete(commentId);
     }
