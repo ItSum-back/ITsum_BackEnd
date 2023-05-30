@@ -30,7 +30,7 @@ public class ClientGoogle implements ClientProxy {
                 .block();
 
         return Members.builder()
-                .socialId(googleUserResponse.getId())
+                .socialId(googleUserResponse.getSub())
                 .name(googleUserResponse.getName())
                 .email(googleUserResponse.getEmail())
                 .memberProvider(MemberProvider.GOOGLE)
