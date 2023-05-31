@@ -48,7 +48,7 @@ public class PostController {
      */
     @ApiOperation(value = "모집글 목록 생성", notes = "무한스크롤을 이용한 모집글 목록 생성")
     @GetMapping
-    public DataResponseDto<SliceResult<PostsListResponseDto>> searchAllPosts(
+    public SliceResult<PostsListResponseDto> searchAllPosts(
             @ApiParam(value = "title", required = false)
             @RequestParam(value = "title",required = false) String title,
             @ApiParam(value = "contents", required = false)
@@ -61,8 +61,8 @@ public class PostController {
             @RequestParam(value = "meetingWay",required = false) String meetingWay,
             Pageable pageable) {
 
-        return DataResponseDto.of(responseService.getSliceResult(
-                postsService.findPostAllByCreatedAtDesc(title,contents,positionList,techSkill,meetingWay,pageable)));
+        return responseService.getSliceResult(
+                postsService.findPostAllByCreatedAtDesc(title,contents,positionList,techSkill,meetingWay,pageable));
     }
 
     /**

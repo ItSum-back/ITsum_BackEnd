@@ -2,6 +2,7 @@ package itsum.study.posts.service;
 
 import itsum.study.posts.common.CommonResult;
 import itsum.study.posts.common.SliceResult;
+import itsum.study.utils.enumeration.Code;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +31,6 @@ public class PagingResponseService {
     private void setSuccessResult(CommonResult result) {
         result.setSuccess(true);
         result.setCode(0);
-        result.setMsg("성공하였습니다");
+        result.setMsg(Code.OK.getMessage());
     }
 }
