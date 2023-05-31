@@ -46,7 +46,7 @@ public class PostController {
      * Post 목록 생성 (무한 스크롤)
      * @return ResponseEntity<PostResponse>
      */
-    @ApiOperation(value = "모집글 목록 생성", notes = "무한스크롤을 이용한 모집글 목록 생성")
+    @ApiOperation(value = "모집글 목록 조회", notes = "무한스크롤을 이용한 모집글 목록 생성")
     @GetMapping
     public SliceResult<PostsListResponseDto> searchAllPosts(
             @ApiParam(value = "title", required = false)
