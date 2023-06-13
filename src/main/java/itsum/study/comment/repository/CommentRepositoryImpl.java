@@ -35,6 +35,7 @@ public class CommentRepositoryImpl implements CommentRepositoryCustom {
         JPAQuery<Comment> Query = queryFactory
                 .selectFrom(comment)
                 .where( containsPostId(Id))
+                .where(comment.parent.id.isNull())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize()+1);
 
