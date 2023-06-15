@@ -27,9 +27,7 @@ public class KakaoAuthService {
     public AuthResponse login(AuthRequest authRequest) {
         Members kakaoMember = clientKakao.getUserData(authRequest.getAccessToken());
         String socialId = kakaoMember.getSocialId();
-        System.out.println(kakaoMember.toString());
         Members member = memberQuerydslRepository.findBySocialId(socialId);
-
         AuthToken appToken = authTokenProvider.createUserAppToken(socialId);
 
         System.out.println();
@@ -39,12 +37,16 @@ public class KakaoAuthService {
             return AuthResponse.builder()
                     .appToken(appToken.getToken())
                     .isNewMember(Boolean.TRUE)
+                    .socialID(socialId)
+                    .userName(kakaoMember.getName())
                     .build();
         }
 
         return AuthResponse.builder()
                 .appToken(appToken.getToken())
                 .isNewMember(Boolean.FALSE)
+                .socialID(socialId)
+                .userName(member.getName())
                 .build();
     }
 }

@@ -27,6 +27,8 @@ public class Comment extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column
     private Long id;
+    @Column(nullable = false)
+    private String socialId;
     @Column
     private String contents;
     @Column

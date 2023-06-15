@@ -23,6 +23,8 @@ public class Post extends BaseEntity {
     private String title;
     @Column
     private String contents;
+    @Column(nullable = false)
+    private String socialId;
     @Column(columnDefinition = "integer default 0", nullable = false)
     private int view;
     @Column(name="position_list")

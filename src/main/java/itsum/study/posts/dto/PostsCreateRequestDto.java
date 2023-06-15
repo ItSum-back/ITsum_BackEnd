@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PostsCreateRequestDto {
+    private String socialId;
     private String title;
     private String contents;
     private String positionList ;
@@ -29,6 +30,6 @@ public class PostsCreateRequestDto {
     public Post toEntity() {
         return Post.builder().title(title).contents(contents).positionList(positionList).personnel(personnel)
                 .techSkill(techSkill).meetingWay(meetingWay).members(members).category(category).projectStartTime(projectStartTime).projectEndTime(projectEndTime).deadline(deadline)
-                .contact(contact).build();
+                .contact(contact).socialId(socialId).build();
     }
 }

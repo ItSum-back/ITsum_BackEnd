@@ -25,6 +25,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
@@ -81,6 +83,10 @@ public class PostController {
     @ApiOperation(value = "모집글 수정", notes = "모집글의 ID 값을 통해 업데이트 한다.")
     @PutMapping("/{id}")
     public Long updatePost(@PathVariable Long id, @RequestBody PostsUpdateRequestDto requestDto) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDetails userDetails = (UserDetails)principal;
+        String username = ((UserDetails) principal).getUsername();
+        String password = ((UserDetails) principal).getPassword();
         return  postsService.update(id, requestDto);
     }
 

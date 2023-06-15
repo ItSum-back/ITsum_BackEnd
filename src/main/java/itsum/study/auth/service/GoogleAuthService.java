@@ -34,12 +34,16 @@ public class GoogleAuthService {
             return AuthResponse.builder()
                     .appToken(appToken.getToken())
                     .isNewMember(Boolean.TRUE)
+                    .socialId(socialId)
+                    .userName(googleMember.getName())
                     .build();
         }
 
         return AuthResponse.builder()
                 .appToken(appToken.getToken())
                 .isNewMember(Boolean.FALSE)
+                .socialId(socialId)
+                .userName(member.getName())
                 .build();
     }
 }
