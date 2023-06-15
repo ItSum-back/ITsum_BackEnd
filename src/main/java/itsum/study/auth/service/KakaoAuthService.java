@@ -37,7 +37,7 @@ public class KakaoAuthService {
             return AuthResponse.builder()
                     .appToken(appToken.getToken())
                     .isNewMember(Boolean.TRUE)
-                    .socialID(socialId)
+                    .socialId(socialId)
                     .userName(kakaoMember.getName())
                     .build();
         }
@@ -45,7 +45,7 @@ public class KakaoAuthService {
         return AuthResponse.builder()
                 .appToken(appToken.getToken())
                 .isNewMember(Boolean.FALSE)
-                .socialID(socialId)
+                .socialId(socialId)
                 .userName(member.getName())
                 .build();
     }

@@ -28,6 +28,7 @@ public class PostsListResponseDto {
         private LocalDateTime deadline;
         private String contact;
         private int view;
+        private String socialId;
 
 
         public PostsListResponseDto(Post entity) {
@@ -47,6 +48,7 @@ public class PostsListResponseDto {
             this.projectStartTime = entity.getProjectStartTime();
             this.projectEndTime = entity.getProjectEndTime();
             this.contact = entity.getContact();
+            this.socialId = entity.getSocialId();
         }
 
       public static ArrayList<PostsListResponseDto> toPostListResponse(List<Post> fetch) {

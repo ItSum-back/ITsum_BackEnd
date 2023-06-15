@@ -40,6 +40,7 @@ public class PostsResponseDto {
     private LocalDateTime projectEndTime;
     private LocalDateTime deadline;
     private String contact;
+    private String socialId;
 
     public PostsResponseDto(Post entity) {
         this.id = entity.getId();
@@ -57,6 +58,7 @@ public class PostsResponseDto {
         this.projectStartTime = entity.getProjectStartTime();
         this.projectEndTime = entity.getProjectEndTime();
         this.contact = entity.getContact();
+        this.socialId = entity.getSocialId();
     }
 
 

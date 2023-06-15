@@ -19,11 +19,13 @@ public class CommentResponseDto {
     private String contents;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
+    private String socialId;
 
     public CommentResponseDto(Comment entity) {
         this.id = entity.getId();
         this.contents = entity.getContents();
         this.createdAt = entity.getCreatedAt();
         this.modifiedAt = entity.getModifiedAt();
+        this.socialId = entity.getSocialId();
     }
 }

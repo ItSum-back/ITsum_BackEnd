@@ -19,6 +19,7 @@ public class CommentListResponseDto {
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
     private String creatorName;
+    private String socialId;
 
     public CommentListResponseDto(Comment c) {
         this.id = c.getId();
@@ -26,6 +27,7 @@ public class CommentListResponseDto {
         this.createdAt = c.getCreatedAt();
         this.modifiedAt = c.getModifiedAt();
         this.creatorName = c.getCreatorName();
+        this.socialId = c.getSocialId();
     }
 
 
