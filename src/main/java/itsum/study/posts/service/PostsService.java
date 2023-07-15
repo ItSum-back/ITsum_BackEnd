@@ -42,13 +42,13 @@ public class PostsService {
 
     @Transactional
     public PostsResponseDto findById(Long id) {
-        Post entity = postsRepository.findById(id).orElseThrow(()->new IllegalArgumentException("해당 게시글이 없습니다. id="+id));
+        Post entity = postsRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
         return new PostsResponseDto(entity);
     }
 
     @Transactional
     public Long update(Long id, PostsUpdateRequestDto requestDto) {
-        Post posts = postsRepository.findById(id).orElseThrow(()-> new IllegalArgumentException("해당 게시글이 없습니다. id= "+id));
+        Post posts = postsRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id= " + id));
 
         //JPA 의 영속성 컨텍스트 덕분에 entity 객체의 값만 변경하면 자동으로 변경사항 반영
         //따라서 repository에서 update를 하지 않아도 된다.
@@ -56,11 +56,11 @@ public class PostsService {
         return id;
     }
 
-   @Transactional
+    @Transactional
     public Long delete(Long id) {
-        Post posts = postsRepository.findById(id).orElseThrow(()-> new IllegalArgumentException("해당 게시글이 없습니다. id= "+id));
-       posts.delete();
-       return id;
+        Post posts = postsRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id= " + id));
+        posts.delete();
+        return id;
     }
 
     @Transactional
@@ -72,10 +72,10 @@ public class PostsService {
     @Transactional
     public Slice<PostsListResponseDto> findPostAllByCreatedAtDesc(String title, String contents,
                                                                   String positionList, String techSkill,
-                                                                  String meetingWay, Pageable pageable) {
+                                                                  String meetingWay, Long memberId, Pageable pageable) {
 
-        return postsRepository.findAllPostsOrderByCreatedAtDesc( title, contents,
-                                                                 positionList,  techSkill,
-                                                                 meetingWay, pageable);
+        return postsRepository.findAllPostsOrderByCreatedAtDesc(title, contents,
+                positionList, techSkill,
+                meetingWay, memberId, pageable);
     }
 }

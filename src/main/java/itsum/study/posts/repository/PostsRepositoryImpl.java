@@ -27,7 +27,7 @@ import static itsum.study.posts.domain.QPost.post;
 
 @Repository
 @RequiredArgsConstructor
-public class PostsRepositoryImpl implements PostsRepositoryCustom{
+public class PostsRepositoryImpl implements PostsRepositoryCustom {
 
     private final JPAQueryFactory queryFactory;
 
@@ -35,58 +35,60 @@ public class PostsRepositoryImpl implements PostsRepositoryCustom{
     @Override
     public Slice<PostsListResponseDto> findAllPostsOrderByCreatedAtDesc(String title, String contents,
                                                                         String positionList, String techSkill,
-                                                                        String meetingWay, Pageable pageable) {
+                                                                        String meetingWay, Long memberId, Pageable pageable) {
         LocalDateTime now = LocalDateTime.now();
 
         JPAQuery<Post> postQuery = queryFactory
                 .selectFrom(post)
-                .where( containsTitle(title)
-                        ,containsContents(contents)
-                        ,containsPosition(positionList)
-                        ,containsTechskill(techSkill)
-                        ,containsMeetingWay(meetingWay)
-                         ,afterSth(post.deadline, now)
+                .where(containsTitle(title)
+                        , containsContents(contents)
+                        , containsPosition(positionList)
+                        , containsTechskill(techSkill)
+                        , containsMeetingWay(meetingWay)
+                        , containsMemberId(memberId)
+                        , afterSth(post.deadline, now)
                 )
                 .offset(pageable.getOffset())
-                .limit(pageable.getPageSize()+1);
+                .limit(pageable.getPageSize() + 1);
 
-        for(Sort.Order o : pageable.getSort()){
-            PathBuilder pathBuilder = new PathBuilder(post.getType(),post.getMetadata());
-            postQuery.orderBy(new OrderSpecifier(o.isAscending() ? Order.ASC:Order.DESC, pathBuilder.get(o.getProperty())));
+        for (Sort.Order o : pageable.getSort()) {
+            PathBuilder pathBuilder = new PathBuilder(post.getType(), post.getMetadata());
+            postQuery.orderBy(new OrderSpecifier(o.isAscending() ? Order.ASC : Order.DESC, pathBuilder.get(o.getProperty())));
         }
 
         List<PostsListResponseDto> content = new ArrayList<>(PostsListResponseDto.toPostListResponse(postQuery.fetch()));
         boolean hasNext = false;
 
-        if(content.size() > pageable.getPageSize()){
+        if (content.size() > pageable.getPageSize()) {
             content.remove(pageable.getPageSize());
             hasNext = true;
         }
 
-        return new SliceImpl<>(content,pageable,hasNext);
+        return new SliceImpl<>(content, pageable, hasNext);
     }
 
-    private  BooleanExpression containsMeetingWay(String meetingWay) {
+    private BooleanExpression containsMeetingWay(String meetingWay) {
         return ObjectUtils.isEmpty(meetingWay) ? null : post.meetingWay.contains(meetingWay);
     }
 
-    private  BooleanExpression  containsTechskill(String techSkill) {
+    private BooleanExpression containsTechskill(String techSkill) {
         return ObjectUtils.isEmpty(techSkill) ? null : post.techSkill.contains(techSkill);
     }
 
-    private  BooleanExpression  containsPosition(String positionList) {
+    private BooleanExpression containsPosition(String positionList) {
         return ObjectUtils.isEmpty(positionList) ? null : post.positionList.contains(positionList);
-
     }
 
-    private  BooleanExpression  containsContents(String contents) {
+    private BooleanExpression containsContents(String contents) {
         return ObjectUtils.isEmpty(contents) ? null : post.contents.contains(contents);
-
     }
 
-    private  BooleanExpression  containsTitle(String title) {
+    private BooleanExpression containsTitle(String title) {
         return ObjectUtils.isEmpty(title) ? null : post.title.contains(title);
+    }
 
+    private BooleanExpression containsMemberId(Long memberId) {
+        return ObjectUtils.isEmpty(memberId) ? null : post.title.contains(memberId);
     }
 
     private BooleanExpression afterSth(DateTimePath<LocalDateTime> deadline, LocalDateTime compare) {
