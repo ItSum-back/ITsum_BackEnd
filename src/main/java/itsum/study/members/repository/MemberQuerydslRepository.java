@@ -13,7 +13,7 @@ import static itsum.study.members.domain.QMembers.members;
 @Repository
 @RequiredArgsConstructor
 public class MemberQuerydslRepository {
-
+    private static final int UPDATE_FAIL = 0;
     private final JPAQueryFactory jpaQueryFactory;
 
     @Transactional(readOnly = true)
@@ -32,5 +32,15 @@ public class MemberQuerydslRepository {
                 .from(members)
                 .where(members.id.eq(memberId))
                 .fetchOne();
+    }
+
+    public boolean updateNickNameByMemberId(Long memberId, String newNickName) {
+        int update = jpaQueryFactory
+                .update(members)
+                .set(members.name, newNickName)
+                .where(members.id.eq(memberId))
+                .execute();
+
+        return update == UPDATE_FAIL;
     }
 }
