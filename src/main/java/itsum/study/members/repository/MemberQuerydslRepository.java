@@ -35,7 +35,7 @@ public class MemberQuerydslRepository {
     }
 
     public boolean updateNickNameByMemberId(Long memberId, String newNickName) {
-        int update = jpaQueryFactory
+        long update = jpaQueryFactory
                 .update(members)
                 .set(members.name, newNickName)
                 .where(members.id.eq(memberId))

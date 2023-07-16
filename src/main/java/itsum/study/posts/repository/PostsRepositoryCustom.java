@@ -16,5 +16,5 @@ public interface PostsRepositoryCustom {
 
 
     Slice<PostsListResponseDto> findAllPostsOrderByCreatedAtDesc(final String title, final String contents, final String positionList,
-                                                                 final String techSkill, final String meetingWay, Pageable pageable);
+                                                                 final String techSkill, final String meetingWay, final Long memberId, Pageable pageable);
 }

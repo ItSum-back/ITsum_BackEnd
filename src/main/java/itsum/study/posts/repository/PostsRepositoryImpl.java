@@ -88,7 +88,7 @@ public class PostsRepositoryImpl implements PostsRepositoryCustom {
     }
 
     private BooleanExpression containsMemberId(Long memberId) {
-        return ObjectUtils.isEmpty(memberId) ? null : post.title.contains(memberId);
+        return ObjectUtils.isEmpty(memberId) ? null : post.id.eq(memberId);
     }
 
     private BooleanExpression afterSth(DateTimePath<LocalDateTime> deadline, LocalDateTime compare) {
