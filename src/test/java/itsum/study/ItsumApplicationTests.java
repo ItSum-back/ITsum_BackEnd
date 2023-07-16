@@ -41,7 +41,7 @@ class ItsumApplicationTests {
 		//postsRepository.save(new Post(18, "공모전 참여할 개발자 모집합니다. 프론트","공모전 프론트 2명을 모집합니다." , "react", "offline", "프론트"));
 
 
-		Slice<PostsListResponseDto> slice= postsRepository.findAllPostsOrderByCreatedAtDesc("모집합니다","백엔드","","","",PageRequest.of(0,1));
+		Slice<PostsListResponseDto> slice= postsRepository.findAllPostsOrderByCreatedAtDesc("모집합니다","백엔드","","","",1L,PageRequest.of(0,1));
 
 		for (PostsListResponseDto item : slice.getContent()) {
 			System.out.println("제목:"+item.getTitle());
