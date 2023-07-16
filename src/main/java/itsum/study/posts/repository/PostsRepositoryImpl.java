@@ -35,7 +35,7 @@ public class PostsRepositoryImpl implements PostsRepositoryCustom {
     @Override
     public Slice<PostsListResponseDto> findAllPostsOrderByCreatedAtDesc(String title, String contents,
                                                                         String positionList, String techSkill,
-                                                                        String meetingWay, Long memberId, Pageable pageable) {
+                                                                        String meetingWay, String memberId, Pageable pageable) {
         LocalDateTime now = LocalDateTime.now();
 
         JPAQuery<Post> postQuery = queryFactory
@@ -87,8 +87,8 @@ public class PostsRepositoryImpl implements PostsRepositoryCustom {
         return ObjectUtils.isEmpty(title) ? null : post.title.contains(title);
     }
 
-    private BooleanExpression containsMemberId(Long memberId) {
-        return ObjectUtils.isEmpty(memberId) ? null : post.title.contains(memberId);
+    private BooleanExpression containsMemberId(String memberId) {
+        return ObjectUtils.isEmpty(memberId) ? null : post.socialId.contains(memberId);
     }
 
     private BooleanExpression afterSth(DateTimePath<LocalDateTime> deadline, LocalDateTime compare) {

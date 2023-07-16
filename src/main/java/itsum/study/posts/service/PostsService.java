@@ -72,7 +72,7 @@ public class PostsService {
     @Transactional
     public Slice<PostsListResponseDto> findPostAllByCreatedAtDesc(String title, String contents,
                                                                   String positionList, String techSkill,
-                                                                  String meetingWay, Long memberId, Pageable pageable) {
+                                                                  String meetingWay, String memberId, Pageable pageable) {
 
         return postsRepository.findAllPostsOrderByCreatedAtDesc(title, contents,
                 positionList, techSkill,

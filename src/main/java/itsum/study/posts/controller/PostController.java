@@ -62,7 +62,7 @@ public class PostController {
             @ApiParam(value = "meetingWay", required = false)
             @RequestParam(value = "meetingWay", required = false) String meetingWay,
             @ApiParam(value = "memberId", required = false)
-            @RequestParam(value = "memberId", required = false) Long memberId,
+            @RequestParam(value = "memberId", required = false) String memberId,
             Pageable pageable) {
 
         return responseService.getSliceResult(

@@ -1,7 +1,11 @@
 package itsum.study.members.controller;
 
+import itsum.study.members.dto.NickNameChangeRequest;
 import itsum.study.members.service.MemberService;
+import itsum.study.utils.dto.DataResponseDto;
 import org.springframework.web.bind.annotation.*;
+
+import java.math.BigInteger;
 
 @RequestMapping("/mypage")
 @RestController
@@ -14,9 +18,9 @@ public class MyPageController {
     }
 
     @PatchMapping("/{id}")
-    public boolean changeMemberNickName(@PathVariable Long id, @RequestBody String nickName) {
+    public DataResponseDto changeMemberNickName(@PathVariable String id, @RequestBody NickNameChangeRequest request) {
 
-        return memberService.updateNickName(id, nickName);
+        return DataResponseDto.of(memberService.updateNickName(id, request.getNickName()));
     }
 
 }

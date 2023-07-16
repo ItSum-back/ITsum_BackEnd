@@ -1,5 +1,6 @@
 package itsum.study.members.repository;
 
+import com.querydsl.core.types.Expression;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import itsum.study.members.domain.Members;
@@ -7,6 +8,8 @@ import itsum.study.members.dto.UserInfoResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigInteger;
 
 import static itsum.study.members.domain.QMembers.members;
 
@@ -34,11 +37,11 @@ public class MemberQuerydslRepository {
                 .fetchOne();
     }
 
-    public boolean updateNickNameByMemberId(Long memberId, String newNickName) {
-        int update = jpaQueryFactory
+    public boolean updateNickNameByMemberId(String memberId, String newNickName) {
+        long update = jpaQueryFactory
                 .update(members)
                 .set(members.name, newNickName)
-                .where(members.id.eq(memberId))
+                .where(members.socialId.eq(memberId))
                 .execute();
 
         return update == UPDATE_FAIL;
