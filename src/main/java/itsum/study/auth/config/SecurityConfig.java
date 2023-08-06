@@ -50,10 +50,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
                 .authorizeRequests()
-                .antMatchers(HttpMethod.OPTIONS).permitAll()
-                .antMatchers("/auth/**").permitAll()
-                .antMatchers(PERMIT_URL_ARRAY).permitAll()
-                .anyRequest().authenticated().and() // 해당 요청을 인증된 사용자만 사용 가능
+                .antMatchers("/**").permitAll()
+                .and() // 해당 요청을 인증된 사용자만 사용 가능
                 .headers()
                 .frameOptions()
                 .sameOrigin().and()
@@ -67,8 +65,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //.and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().oauth2Login().and()
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+                .and().oauth2Login();
 
     }
 
@@ -85,7 +82,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         return source;
     }
-
-
 
 }

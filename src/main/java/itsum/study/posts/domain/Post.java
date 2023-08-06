@@ -70,8 +70,6 @@ public class Post extends BaseEntity {
         this.view++;
     }
 
-
-
     public Post(long id, String title){
         this.id= id;
         this.title = title;
