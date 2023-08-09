@@ -57,6 +57,7 @@ public class PostsResponseDto {
         this.category = entity.getCategory();
         this.projectStartTime = entity.getProjectStartTime();
         this.projectEndTime = entity.getProjectEndTime();
+        this.deadline = entity.getDeadline();
         this.contact = entity.getContact();
         this.socialId = entity.getSocialId();
     }
